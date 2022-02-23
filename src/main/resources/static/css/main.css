@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+header {
+	background-color: #2E4361;
+	height: 43px;
+}
+
+#logo {
+	margin-right: 10vh;
+}
+
+#headerNav {
+	min-width: 40vh;
+	font-size: 15px;
+}
+
+#loginBox {
+	margin-left: 10vh;
+	font-size: 12px;
+	color: #2E4361;
+}
+
+#loginBox > #loginBtn {
+	cursor: pointer;
+}
+
+#recommendSignUpBox {
+	font-size: 12px;
+}
+
+section {
+	min-height: calc(100vh - 73px);
+}
+
+
+footer {
+	background-color: #2E4361;
+	position: sticky;
+	top: 100vh;
+	height: 30px;
+	font-size: 12px;
+}
