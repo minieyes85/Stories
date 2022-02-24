@@ -28,6 +28,11 @@ header {
 	font-size: 12px;
 }
 
+#idDuplicateCheckBtn {
+	font-size: 12px;
+}
+
+
 section {
 	min-height: calc(100vh - 73px);
 }
