@@ -49,7 +49,7 @@ public class UserRestController {
 		if(userBO.findUser(loginId)) {
 			result.put("isDuplicated","true");
 		} else {
-			result.put("isDuplicated","false");			
+			result.put("isDuplicated","false");
 		}
 		
 		return result;
@@ -78,5 +78,24 @@ public class UserRestController {
 		}
 		
 		return result;		
+	}
+	
+	@GetMapping("/user/signOut")
+	public Map<String, String> signOut(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		session.removeAttribute("userId");
+		session.removeAttribute("userName");
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(session.getAttribute("userId") == null) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
 	}
 }

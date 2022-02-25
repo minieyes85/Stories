@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header>
 	<div
 		class="d-flex align-items-center justify-content-center text-white">
-		<div class="fs-3 fw-bold" id="logo">Stories</div>
+		<div class="fs-3 fw-bold" id="logo">
+			<a href="/" class="text-decoration-none text-white">Stories</a>
+		</div>
 
 		<div id="headerNav">
 			<ul class="nav">
@@ -14,11 +17,27 @@
 				<li class="nav-item"><a class="nav-link text-white" href="#">bbs4</a></li>
 			</ul>
 		</div>
-
-		<div id="loginBox">
-			<div id="loginBtn" class="border border-1 rounded p-1 bg-white"
-				onclick="location.href='#'"
-				data-bs-toggle="modal" data-bs-target="#signInModal">로그인</div>
+		<div id="loginBox" class="d-flex justify-content-end">
+			<div id="signedUserName" class="d-flex align-self-center justify-content-end text-white">
+				<c:if test="${userName ne null}">
+					${userName}님
+				</c:if> 
+			</div>
+			
+			<div class="d-flex align-items-center">
+				<c:choose>
+					<c:when test="${userName ne null}">
+					<div id="logoutBtn" class="border border-1 rounded p-1 bg-white"
+						onclick="location.href='#'">로그아웃</div>
+					</c:when>
+					<c:when test="${userName eq null}">
+					<div id="loginBtn" class="border border-1 rounded p-1 bg-white"
+						onclick="location.href='#'"
+						data-bs-toggle="modal" data-bs-target="#signInModal">로그인</div>
+					</c:when>				
+				</c:choose>
+			</div>
+			
 		</div>
 
 	</div>

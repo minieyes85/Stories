@@ -41,6 +41,23 @@ $(document).ready(function(){
 		
 	});
 	
+	//로그아웃
+	$("#logoutBtn").on("click",function(){
+		$.ajax({
+			type: "get",
+			url: "/user/signOut",
+			success: function(data){
+				if(data.result == "succss"){
+					alert();
+					location.reload();
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+		})
+	});
+	
 	
 	// 아이디 중복 체크
 	$("#idDuplicationCheckBtn").on("click",function(){

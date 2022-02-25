@@ -22,6 +22,7 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section>
+	${userId }
 	${userName }
 	
 	

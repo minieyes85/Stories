@@ -20,7 +20,18 @@ header {
 	color: #2E4361;
 }
 
-#loginBox > #loginBtn {
+#signedUserName {
+	min-width: 80px;
+	margin-right: 2vh;
+	font-size: 15px;	
+	font-weight: bold;
+}
+
+#loginBtn {
+	cursor: pointer;
+}
+
+#logoutBtn {
 	cursor: pointer;
 }
 
