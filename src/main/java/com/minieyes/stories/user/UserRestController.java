@@ -91,11 +91,56 @@ public class UserRestController {
 		Map<String, String> result = new HashMap<>();
 		
 		if(session.getAttribute("userId") == null) {
-			result.put("result", "success");
+			result.put("result", "success");			
 		} else {
-			result.put("result", "fail");
+			result.put("result", "fail");						
 		}
 		
 		return result;
+	}
+	
+	@PostMapping("/user/checkPassword")
+	public Map<String, String> checkPassword(
+			HttpServletRequest req,
+			@RequestParam("password") String password){
+		
+		HttpSession session = req.getSession();
+		int id = (int) session.getAttribute("userId");
+		
+		boolean flag = userBO.checkPassword(id, password);				
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(flag) {
+			result.put("result", "true");			
+		} else {
+			result.put("result", "false");						
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/user/update")
+	public Map<String, String> updateUserInfo(
+			@RequestParam("userName") String userName,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			HttpServletRequest req){
+		
+		HttpSession session = req.getSession();
+		
+		int userId = (Integer) session.getAttribute("userId");
+		
+		int count = userBO.updateInfo(userId, userName, email, password);
+		
+		Map<String, String> result = new HashMap<>();
+
+		if(count >= 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result","fail");
+		}
+		
+		return result;		
 	}
 }

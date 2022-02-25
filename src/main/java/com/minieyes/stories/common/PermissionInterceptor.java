@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,28 +20,28 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			Object handler) throws IOException {
 		
 		// 로그인 정보
-		HttpSession session = req.getSession();
+//		HttpSession session = req.getSession();
 		
 		// 현재 요청한 url
-		String uri = req.getRequestURI();
+//		String uri = req.getRequestURI();
 		
 		//로그인 상태
-		if(session.getAttribute("userId") != null) {
-			//로그인,회원가입 화면 접근 불가
-			
-			if(uri.startsWith("/user/")) {
-				resp.sendRedirect("/");
-				return false;
-			}
-			
-		} else {
-			// 로그인 안됐을때
-			// 포스트 화면 접근 불가
-			if(uri.startsWith("/post/")) {
-				resp.sendRedirect("/user/signin_view");
-				return false;
-			}
-		}
+//		if(session.getAttribute("userId") != null) {
+//			//로그인,회원가입 화면 접근 불가
+//			
+//			if(uri.startsWith("/user/")) {
+//				resp.sendRedirect("/");
+//				return false;
+//			}
+//			
+//		} else {
+//			// 로그인 안됐을때
+//			// 포스트 화면 접근 불가
+//			if(uri.startsWith("/post/")) {
+//				resp.sendRedirect("/user/signin_view");
+//				return false;
+//			}
+//		}
 		
 		return true;		
 		

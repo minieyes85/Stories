@@ -12,8 +12,10 @@
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 <link rel="stylesheet" href="/static/css/main.css" type="text/css">
-<link rel="stylesheet" href="/static/css/section.css" type="text/css">
+<link rel="stylesheet" href="/static/css/bbs.css" type="text/css">
 
 <meta charset="UTF-8">
 <title>Stories</title>
@@ -23,57 +25,52 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
-		<div id="mainForm" class="bg-danger d-flex flex-wrap">
-			<c:forEach var="bbs" items="${allbbs }">
-			<div class="subForm bg-warning">
+		<div id="mainForm" class="bg-danger container">
+			<div class="bg-warning mt-3 mb-2">
+			${bbs.title}			
+			</div>
+			
+			<div class="bg-secondary mb-2">
+				<c:forEach var="category" items="${categories }">
+					${category.title }
+				</c:forEach>
+			</div>
+			
+			<div class="bg-success mb-2 d-flex justify-content-between">
+				<i class="bi bi-search"></i>
+				<i class="bi bi-pencil-square"></i>
+			</div>
+			
+			<div class="bg-info">
 				<table class="table table-sm">
-					<thead>
+					<thead class="text-center">
 						<tr>
-							<td>
-								<a href="/bbs?bbsId=${bbs.id }" class="text-decoration-none">
-									${bbs.title }								
-								</a>
-							</td>							
+							<td id="theadTitle">제목</td>
+							<td id="theadUserName">작성자</td>
+							<td id="theadRecommend">추천 수</td>
+							<td id="theadDate">날짜</td>
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var="article" items="${articles }">
 						<tr>
-							<td>1</td>					
+							<td>
+								${article.categoryName }
+								${article.title }
+							</td>
+							<td class="text-center">
+								${article.userName }
+							</td>
+							<td>
+							</td>
+							<td class="text-center">
+								<fmt:formatDate value="${article.createdAt }" pattern="yy-MM-dd HH:mm"/>
+							</td>
 						</tr>
-						<tr>
-							<td>1</td>				
-						</tr>
-						<tr>
-							<td>1</td>				
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
+				</c:forEach>
 					</tbody>
 				</table>
 			</div>
-			</c:forEach>
 		</div>
 	
 	

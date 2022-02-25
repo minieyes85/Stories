@@ -35,4 +35,26 @@ public class UserBO {
 		
 		return userDAO.selectSignedUser(loginId, encPassword);
 	}
+	
+	public User getSignedUser(int id) {
+		return userDAO.selectById(id);
+	}
+	
+	public boolean checkPassword(int id, String password) {
+		
+		String encPassword = EncryptUtils.md5(password);
+		
+		User user = userDAO.selectById(id);
+		
+		if(encPassword.equals(user.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public int updateInfo(int id, String userName, String email, String password) {		
+		String encPassword = EncryptUtils.md5(password);
+		return userDAO.updateUser(id,userName,email,encPassword);
+	}
 }

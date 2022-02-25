@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript" src="/static/js/header.js"></script>
+
 <header>
 	<div
 		class="d-flex align-items-center justify-content-center text-white">
@@ -20,8 +22,8 @@
 		<div id="loginBox" class="d-flex justify-content-end">
 			<div id="signedUserName" class="d-flex align-self-center justify-content-end text-white">
 				<c:if test="${userName ne null}">
-					${userName}님
-				</c:if> 
+					<a href="/user/updateView" class="text-decoration-none text-white">${userName}</a>님
+				</c:if>
 			</div>
 			
 			<div class="d-flex align-items-center">

@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+#mainForm {
+	width : 1000px;
+	min-height : 100%;
+}
+
+#theadTitle {
+	width: 65%;
+}
+
+#theadDate {
+	width: 15%;
+}

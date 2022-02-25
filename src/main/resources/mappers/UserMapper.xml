@@ -25,6 +25,23 @@
 		
 	</insert>
 	
+	<select id="selectById"
+		parameterType="int"
+		resultType="com.minieyes.stories.user.model.User">
+		
+		SELECT
+			`id`
+			, `loginId`
+			, `userName`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM `user`
+		WHERE `id` = #{id}
+		
+		</select>
+	
 	<select id="selectLoginId"
 		parameterType="map"
 		resultType="com.minieyes.stories.user.model.User">
@@ -49,5 +66,20 @@
 		WHERE `loginId` = #{loginId}
 		AND `password` = #{password}
 	</select>
+	
+	<update id="updateUser"
+		parameterType="map">
+		
+		UPDATE `user`
+		SET
+		`userName` = #{userName}
+		, `email` = #{email}
+		, `password` = #{password}
+		, `updatedAt` = now()
+		WHERE
+		`id` = #{id}
+		
+	</update>
+	
 
 </mapper>

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+#mainForm {
+	width: 1000px;
+	min-height: 100%;
+}
+
+#mainForm > .subForm {
+	width: 496px;
+	height: 426px;
+	margin: 2px;
+}
+
+thead {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+tbody {
+	font-size: 14px;
+}

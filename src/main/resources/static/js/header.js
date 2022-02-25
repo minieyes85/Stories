@@ -47,9 +47,10 @@ $(document).ready(function(){
 			type: "get",
 			url: "/user/signOut",
 			success: function(data){
-				if(data.result == "succss"){
-					alert();
+				if(data.result == "success"){
 					location.reload();
+				} else {
+					alert("로그아웃에 실패 하였습니다.");
 				}
 			},
 			error: function(){
