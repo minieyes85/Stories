@@ -11,15 +11,7 @@
 	color: #2E4361;
 }
 
-#theadTitle {
-	width: 65%;
-}
-
-#theadDate {
+#createArticleCategory {
 	width: 15%;
-}
-
-.bbsBtn {
-	background-color: #2E4361;
-	cursor: pointer;
+	margin-right: 5px;
 }

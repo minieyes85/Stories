@@ -13,10 +13,9 @@
 
 		<div id="headerNav">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link text-white" href="#">bbs1</a></li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">bbs2</a></li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">bbs3</a></li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">bbs4</a></li>
+				<c:forEach var="bbs" items="${allbbs}">
+				<li class="nav-item"><a class="nav-link text-white" href="/bbs?bbsId=${bbs.id }">${bbs.title }</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div id="loginBox" class="d-flex justify-content-end">
@@ -57,7 +56,7 @@
 				<div class="modal-body">
 					<form>
 					<input id="signInId" type="text" class="form-control mt-1 mb-2" placeholder="ID"/>
-					<input id="signInPassword" type="text" class="form-control mb-2" placeholder="Password"/>
+					<input id="signInPassword" type="password" class="form-control mb-2" placeholder="Password"/>
 					<div class="w-100 d-grid gap-2">
 						<button id="signInBtn" type="submit" class="btn btn-sm btn-primary">로그인</button>
 					</div>

@@ -64,6 +64,34 @@
 			ORDER BY articleId DESC
 	
 	</select>
+	
+	<insert id="insertNewArticle"
+		parameterType="map">
+		
+		INSERT INTO `article`
+			( `userId`
+			, `userName`
+			, `bbsId`
+			, `categoryId`
+			, `grpId`
+			, `depth`
+			, `title`
+			, `content`
+			, `createdAt`
+			, `updatedAt`)
+			VALUE
+			( #{userId}
+			, #{userName}
+			, #{bbsId}
+			, #{categoryId}
+			, LAST_INSERT_ID()+1
+			, 1
+			, #{title}
+			, #{content}
+			, now()
+			, now())
+	
+	</insert>
 
 
 </mapper>

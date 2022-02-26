@@ -21,4 +21,12 @@ public interface BBSDAO {
 	public List<BBSDTO> selectBBS(
 			@Param("bbsId") int bbsId);
 	
+	public int insertNewArticle(
+			@Param("userId") int userId,
+			@Param("userName") String userName,
+			@Param("bbsId") int bbsId,
+			@Param("categoryId") int categoryId,
+			@Param("title") String title,
+			@Param("content") String content);
+	
 }

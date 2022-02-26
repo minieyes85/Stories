@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
+<script type="text/javascript" src="/static/js/bbs.js"></script>
 <link rel="stylesheet" href="/static/css/main.css" type="text/css">
 <link rel="stylesheet" href="/static/css/bbs.css" type="text/css">
 
@@ -25,25 +26,32 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
-		<div id="mainForm" class="bg-danger container">
-			<div class="bg-warning mt-3 mb-2">
+		<div id="mainForm" class="container bg-white">
+			<div id="bbsTitleBox" class="mt-3 mb-2">
 			${bbs.title}			
 			</div>
 			
-			<div class="bg-secondary mb-2">
+			<div class="mb-2">
 				<c:forEach var="category" items="${categories }">
 					${category.title }
 				</c:forEach>
 			</div>
 			
-			<div class="bg-success mb-2 d-flex justify-content-between">
-				<i class="bi bi-search"></i>
-				<i class="bi bi-pencil-square"></i>
+			<div class="mb-2 d-flex justify-content-between">
+				<div class="bbsBtn border rounded text-white p-1"
+					onclick="location.href='#'">
+					<i class="bi bi-search"></i> 검색	
+				</div>
+				
+				<div class="bbsBtn border rounded text-white p-1"
+					onclick="location.href='/article/createView?bbsId=${bbs.id}'">
+					글쓰기 <i class="bi bi-pencil-square"></i>				
+				</div>
 			</div>
 			
-			<div class="bg-info">
+			<div>
 				<table class="table table-sm">
-					<thead class="text-center">
+					<thead class="text-center fw-bold">
 						<tr>
 							<td id="theadTitle">제목</td>
 							<td id="theadUserName">작성자</td>
@@ -55,7 +63,7 @@
 						<c:forEach var="article" items="${articles }">
 						<tr>
 							<td>
-								${article.categoryName }
+								[${article.categoryName }] 
 								${article.title }
 							</td>
 							<td class="text-center">

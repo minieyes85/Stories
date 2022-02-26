@@ -43,11 +43,10 @@ header {
 	font-size: 12px;
 }
 
-
 section {
 	min-height: calc(100vh - 73px);
+	background-color: #E5E4E2;
 }
-
 
 footer {
 	background-color: #2E4361;

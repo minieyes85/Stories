@@ -34,4 +34,18 @@ public class BBSBO {
 		
 		return bbsDAO.selectBBS(bbsId);
 	}
+	
+	public int createNewArticle(
+			int userId,
+			String userName,
+			int bbsId,
+			int categoryId,
+			String title,
+			String content) {
+		
+		//첨부파일 첨부 추가
+		//태그 나눠서 저장 추가
+		
+		return bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content);
+	}
 }

@@ -6,9 +6,9 @@
 }
 
 #mainForm > .subForm {
-	width: 496px;
-	height: 426px;
-	margin: 2px;
+	width: 500px;
+	height: 400px;
+	padding: 5px;
 }
 
 thead {

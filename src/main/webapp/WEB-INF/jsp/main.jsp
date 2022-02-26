@@ -23,7 +23,7 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
-		<div id="mainForm" class="bg-danger d-flex flex-wrap">
+		<div id="mainForm" class="bg-white d-flex align-content-start flex-wrap">
 			<c:forEach var="bbs" items="${allbbs }">
 			<div class="subForm bg-warning">
 				<table class="table table-sm">
@@ -42,33 +42,6 @@
 						</tr>
 						<tr>
 							<td>1</td>				
-						</tr>
-						<tr>
-							<td>1</td>				
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
-						</tr>
-						<tr>
-							<td>1</td>			
 						</tr>
 					</tbody>
 				</table>
