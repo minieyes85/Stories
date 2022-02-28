@@ -64,7 +64,7 @@
 						<tr>
 							<td>
 								[${article.categoryName }] 
-								<a href="/article/detailView?bbsId=${bbs.id }&articleId=${article.articleId }" class="text-decoration-none text-black">${article.title }</a>
+								<a href="/article/detailView?articleId=${article.articleId }" class="text-decoration-none text-black">${article.title }</a>
 							</td>
 							<td class="text-center">
 								${article.userName }

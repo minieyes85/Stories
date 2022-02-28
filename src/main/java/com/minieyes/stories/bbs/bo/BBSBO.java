@@ -53,4 +53,12 @@ public class BBSBO {
 	public Article getArticle(int articleId) {
 		return bbsDAO.selectArticle(articleId);
 	}
+	
+	public int updateArticle(int articleId, int categoryId, String title, String content) {
+		return bbsDAO.updateArticle(articleId, categoryId, title, content);
+	}
+	
+	public int removeArticle(int articleId) {
+		return bbsDAO.deleteArticle(articleId);
+	}
 }

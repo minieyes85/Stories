@@ -116,6 +116,30 @@
 			, now())
 	
 	</insert>
+	
+	<update id="updateArticle"
+		parameterType="map">
+		
+		UPDATE `article`
+		SET
+			`categoryId` = #{categoryId},
+			`title` = #{title},
+			`content` = #{content},
+			`updatedAt` = now()
+		WHERE
+			`id` = #{id}
+	
+	</update>
+	
+	<delete id="deleteArticle"
+		parameterType="int">
+		
+		DELETE FROM
+			`article`
+		WHERE
+			`id` = #{id}		
+	
+	</delete>
 
 
 </mapper>

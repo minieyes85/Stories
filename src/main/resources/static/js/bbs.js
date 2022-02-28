@@ -49,4 +49,37 @@
 			}
 		});		
 	});
+	
+	$("#deleteArticleBtn").on("click",function(){
+		var result = confirm("정말 삭제 하시겠습니까?");
+		var articleId = $(this).data("article-id");
+		var bbsId = $(this).data("bbs-id");
+		
+		if(result){
+			
+			$.ajax({
+				type: "post",
+				url: "/article/delete",
+				data: {
+					"articleId": articleId
+				},
+				success: function(data){
+					if(data.result == "success"){
+						alert("글이 삭제 되었습니다.");
+						location.href="/bbs?bbsId="+bbsId;
+					} else {
+						alert("글을 삭제하는데 실패하였습니다.");
+					}
+					
+				},
+				error: function(){
+					alert("error");
+				}
+			});
+			
+		} else {
+			alert("글 삭제를 취소 하셨습니다.");
+		}
+	});
+	
 });

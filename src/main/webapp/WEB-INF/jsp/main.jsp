@@ -25,7 +25,7 @@
 	<section class="d-flex justify-content-center">
 		<div id="mainForm" class="bg-white d-flex align-content-start flex-wrap">
 			<c:forEach var="bbs" items="${allbbs }">
-			<div class="subForm bg-warning">
+			<div class="subForm">
 				<table class="table table-sm">
 					<thead>
 						<tr>

@@ -33,4 +33,12 @@ public interface BBSDAO {
 	public Article selectArticle(
 			@Param("id") int articleId);
 	
+	public int updateArticle(
+			@Param("id") int articleId,
+			@Param("categoryId") int categoryId,
+			@Param("title") String title,
+			@Param("content") String content);
+	
+	public int deleteArticle(@Param("id") int articleId);
+	
 }

@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-<script type="text/javascript" src="/static/js/bbs.js"></script>
+<script type="text/javascript" src="/static/js/articleUpdate.js"></script>
 <link rel="stylesheet" href="/static/css/main.css" type="text/css">
 <link rel="stylesheet" href="/static/css/article.css" type="text/css">
 
@@ -26,36 +26,39 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
-		<div id="mainForm" class="bg-danger container">
-			<div id="bbsTitleBox" class="bg-warning mt-3 mb-2">
+		<div id="mainForm" class="container bg-white">
+			<div id="bbsTitleBox" class="mt-3 mb-2">
 			${bbs.title}
 			</div>
 			
-			<div class="bg-wanring d-flex mb-2">
-				<select id="createArticleCategory" class="form-select form-select-sm">
-					<option value="999" selected>카테고리</option>
+			<div class="d-flex mb-2">
+				<select id="updateArticleCategory" class="form-select form-select-sm" data-selected-category-id="${article.categoryId}">
+					<option value="999">카테고리</option>
 					<c:forEach var="category" items="${categories }">
-						<option value="${category.id }">${category.title }</option>
+						<option value="${category.id }"
+						<c:if test="${category.id eq article.categoryId}">selected = "selected"</c:if>>${category.title }</option>
 					</c:forEach>						
 				</select>
-				<input id="createArticleTitle" type="text" class="form-control form-control-sm" placeholder="제목을 입력 해 주세요.">
+				<input id="updateArticleTitle" type="text" class="form-control form-control-sm" value="${article.title }">
 			</div>
 			
-			<div class="bg-success mb-2 d-flex justify-content-between">
-				<textarea id="createArticleContent" class="form-control" rows="20"></textarea>
+			<div class="mb-2 d-flex justify-content-between">
+				<textarea id="updateArticleContent" class="form-control" rows="20">${article.content }</textarea>
 			</div>
-			
-			<div class="bg-info mb-2">
-				<input id="createArticleFile" type="file">
+
+			<!-- 
+			<div class="mb-2">
+				<input id="updateArticleFile" type="file">
 			</div>
+			 -->
 			
-			<div class="bg-primary mb-2">
+			<div class="mb-2">
 				태그<br>
-				<input id="createArticleTag" type="text" class="form-control form-control-sm" placeholder="쉼표(,)를 이용하여 복수 등록">
+				<input id="updateArticleTag" type="text" class="form-control form-control-sm" placeholder="쉼표(,)를 이용하여 복수 등록">
 			</div>
 			
 			<div class="d-flex justify-content-end">
-				<button id="createArticleBtn" class="btn btn-primary" data-bbs-id="${bbs.id}">글 등록</button>
+				<button id="updateArticleBtn" class="btn btn-primary" data-article-id="${article.id}" data-bbs-id="${bbs.id}">글 수정</button>
 			</div>
 		</div>	
 	

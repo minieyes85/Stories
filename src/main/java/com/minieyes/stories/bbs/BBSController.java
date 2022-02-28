@@ -61,20 +61,43 @@ public class BBSController {
 	
 	@GetMapping("/article/detailView")
 	public String articleDetailView(
-			@RequestParam("bbsId") int bbsId,
 			@RequestParam("articleId") int articleId,
-			HttpServletRequest req,
 			Model model) {
-	
-		BBS bbs = bbsBO.getBBS(bbsId);
-		model.addAttribute("bbs", bbs);
-				
-		List<Category> categories = bbsBO.getCategories(bbsId);
-		model.addAttribute("categories", categories);
+		
+		List<BBS> allbbs = bbsBO.showAllBBS();
+		model.addAttribute("allbbs", allbbs);
 		
 		Article article = bbsBO.getArticle(articleId);
 		model.addAttribute("article", article);
 		
+		BBS bbs = bbsBO.getBBS(article.getBbsId());
+		model.addAttribute("bbs", bbs);
+				
+		List<Category> categories = bbsBO.getCategories(article.getBbsId());
+		model.addAttribute("categories", categories);
+				
 		return "articleDetail";
+	}
+	
+	@GetMapping("/article/updateView")
+	public String articleUpdateView(
+			@RequestParam("articleId") int articleId,
+			Model model,
+			HttpServletRequest req) {
+		
+		List<BBS> allbbs = bbsBO.showAllBBS();
+		model.addAttribute("allbbs", allbbs);
+		
+		Article article = bbsBO.getArticle(articleId);
+		model.addAttribute("article", article);
+		
+		BBS bbs = bbsBO.getBBS(article.getBbsId());
+		model.addAttribute("bbs", bbs);
+		
+		List<Category> categories = bbsBO.getCategories(article.getBbsId());
+		model.addAttribute("categories", categories);
+		
+		
+		return "articleUpdate";
 	}
 }

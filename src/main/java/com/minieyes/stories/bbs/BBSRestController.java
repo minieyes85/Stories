@@ -45,4 +45,42 @@ public class BBSRestController {
 		return result;
 		
 	}
+	
+	@PostMapping("/article/update")
+	public Map<String, String> updateArticle(
+			@RequestParam("articleId") int articleId,
+			@RequestParam("categoryId") int categoryId,
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			HttpServletRequest req){
+		
+		int count = bbsBO.updateArticle(articleId, categoryId, title, content);
+
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+
+		return result;		
+	}
+	
+	@PostMapping("/article/delete")
+	public Map<String, String> deleteArticle(
+			@RequestParam("articleId") int articleId){
+		
+		int count = bbsBO.removeArticle(articleId);
+		
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+
+		return result;	
+	}
 }

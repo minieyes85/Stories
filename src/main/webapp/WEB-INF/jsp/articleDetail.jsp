@@ -53,10 +53,21 @@
 					</span>
 				</div>
 				
-				<div class="me-2"><i class="bi bi-three-dots-vertical"></i></div>
+				<div class="me-2">
+					<div class="dropdown">
+						<a class="dropdown-toggle" href="#"
+							role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+							aria-expanded="false"></a>
+
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item" href="/article/updateView?articleId=${article.id}">수정</a></li>
+							<li><a class="dropdown-item" href="#" id="deleteArticleBtn" data-article-id="${article.id}" data-bbs-id="${bbs.id}">삭제</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			
-			<div id="articleContent" class="mb-5 d-flex justify-content-between">
+			<div id="articleContent" class="ms-2 me-2 mb-5 d-flex justify-content-between">
 				${article.content}
 			</div>
 			
