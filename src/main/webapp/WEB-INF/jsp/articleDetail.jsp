@@ -28,36 +28,59 @@
 	<section class="d-flex justify-content-center">
 		<div id="mainForm" class="container bg-white">
 			<div id="bbsTitleBox" class="mt-3 mb-2">
-			${bbs.title}
-			</div>
-			
-			<div class="d-flex mb-2">
-				<select id="createArticleCategory" class="form-select form-select-sm">
-					<option value="999" selected>카테고리</option>
-					<c:forEach var="category" items="${categories }">
-						<option value="${category.id }">${category.title }</option>
-					</c:forEach>						
-				</select>
-				<input id="createArticleTitle" type="text" class="form-control form-control-sm" placeholder="제목을 입력 해 주세요.">
-			</div>
-			
-			<div class="mb-2 d-flex justify-content-between">
-				<textarea id="createArticleContent" class="form-control" rows="20"></textarea>
+			${bbs.title}			
 			</div>
 			
 			<div class="mb-2">
-				<input id="createArticleFile" type="file">
+				<c:forEach var="category" items="${categories }">
+					${category.title }
+				</c:forEach>
+			</div>
+			
+			<div id="articleCategory" class="mb-2 d-flex justify-content-between">
+				category
+			</div>
+			
+			<div id="articleTitle" class="mb-2 d-flex justify-content-between">
+				${article.title}
+			</div>
+			
+			<div id="articleUserName" class="mb-5 pt-1 pb-1 d-flex justify-content-between border-top border-2 border-dark">
+				<div class="ms-2">
+					<span>${article.userName}</span>
+					<span id="articleTime">
+						<fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd hh:mm"/>
+					</span>
+				</div>
+				
+				<div class="me-2"><i class="bi bi-three-dots-vertical"></i></div>
+			</div>
+			
+			<div id="articleContent" class="mb-5 d-flex justify-content-between">
+				${article.content}
+			</div>
+			
+			<div class="mb-2 d-flex justify-content-center">
+				<i class="bi bi-hand-thumbs-up"></i>추천하기 추천갯수
 			</div>
 			
 			<div class="mb-2">
-				태그<br>
-				<input id="createArticleTag" type="text" class="form-control form-control-sm" placeholder="쉼표(,)를 이용하여 복수 등록">
+				<a href="/bbs?bbsId=${bbs.id }">
+					<i class="bi bi-card-list me-1"></i>
+				</a>
 			</div>
 			
-			<div class="d-flex justify-content-end">
-				<button id="createArticleBtn" class="btn btn-primary" data-bbs-id="${bbs.id}">글 등록</button>
+			<div class="bg-warning mb-2 d-flex justify-content-between">
+				댓글들
 			</div>
-		</div>	
+			
+			<div class="bg-warning mb-2 d-flex justify-content-between">
+				댓글 작성
+			</div>
+						
+		</div>
+	
+	
 	
 	</section>
 	

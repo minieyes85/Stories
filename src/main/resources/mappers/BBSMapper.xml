@@ -65,6 +65,30 @@
 	
 	</select>
 	
+	<select id="selectArticle"
+		parameterType="int"
+		resultType="com.minieyes.stories.bbs.model.Article">
+		
+		SELECT
+			`id`
+			, `userId`
+			, `userName`
+			, `bbsId`
+			, `categoryId`
+			, `grpId`
+			, `depth`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`article`
+		WHERE
+			`id` = #{id}
+	
+	</select>
+	
 	<insert id="insertNewArticle"
 		parameterType="map">
 		

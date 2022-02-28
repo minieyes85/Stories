@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minieyes.stories.bbs.dao.BBSDAO;
+import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
@@ -47,5 +48,9 @@ public class BBSBO {
 		//태그 나눠서 저장 추가
 		
 		return bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content);
+	}
+	
+	public Article getArticle(int articleId) {
+		return bbsDAO.selectArticle(articleId);
 	}
 }

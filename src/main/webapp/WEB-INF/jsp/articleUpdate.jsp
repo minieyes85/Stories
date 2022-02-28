@@ -26,12 +26,12 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
-		<div id="mainForm" class="container bg-white">
-			<div id="bbsTitleBox" class="mt-3 mb-2">
+		<div id="mainForm" class="bg-danger container">
+			<div id="bbsTitleBox" class="bg-warning mt-3 mb-2">
 			${bbs.title}
 			</div>
 			
-			<div class="d-flex mb-2">
+			<div class="bg-wanring d-flex mb-2">
 				<select id="createArticleCategory" class="form-select form-select-sm">
 					<option value="999" selected>카테고리</option>
 					<c:forEach var="category" items="${categories }">
@@ -41,15 +41,15 @@
 				<input id="createArticleTitle" type="text" class="form-control form-control-sm" placeholder="제목을 입력 해 주세요.">
 			</div>
 			
-			<div class="mb-2 d-flex justify-content-between">
+			<div class="bg-success mb-2 d-flex justify-content-between">
 				<textarea id="createArticleContent" class="form-control" rows="20"></textarea>
 			</div>
 			
-			<div class="mb-2">
+			<div class="bg-info mb-2">
 				<input id="createArticleFile" type="file">
 			</div>
 			
-			<div class="mb-2">
+			<div class="bg-primary mb-2">
 				태그<br>
 				<input id="createArticleTag" type="text" class="form-control form-control-sm" placeholder="쉼표(,)를 이용하여 복수 등록">
 			</div>

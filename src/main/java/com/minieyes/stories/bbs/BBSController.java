@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.minieyes.stories.bbs.bo.BBSBO;
+import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
@@ -41,20 +42,39 @@ public class BBSController {
 	
 	@GetMapping("/article/createView")
 	public String articleCreateView(
-			@RequestParam("bbsId") int id,
+			@RequestParam("bbsId") int bbsId,
 			HttpServletRequest req,
 			Model model) {
 		
 		List<BBS> allbbs = bbsBO.showAllBBS();
 		model.addAttribute("allbbs", allbbs);
 		
-		BBS bbs = bbsBO.getBBS(id);
+		BBS bbs = bbsBO.getBBS(bbsId);
 		model.addAttribute("bbs", bbs);
 		
-		List<Category> categories = bbsBO.getCategories(id);
+		List<Category> categories = bbsBO.getCategories(bbsId);
 		model.addAttribute("categories", categories);
 		
 		
 		return "articleCreate";
+	}
+	
+	@GetMapping("/article/detailView")
+	public String articleDetailView(
+			@RequestParam("bbsId") int bbsId,
+			@RequestParam("articleId") int articleId,
+			HttpServletRequest req,
+			Model model) {
+	
+		BBS bbs = bbsBO.getBBS(bbsId);
+		model.addAttribute("bbs", bbs);
+				
+		List<Category> categories = bbsBO.getCategories(bbsId);
+		model.addAttribute("categories", categories);
+		
+		Article article = bbsBO.getArticle(articleId);
+		model.addAttribute("article", article);
+		
+		return "articleDetail";
 	}
 }

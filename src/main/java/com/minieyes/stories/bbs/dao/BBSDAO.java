@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
@@ -28,5 +29,8 @@ public interface BBSDAO {
 			@Param("categoryId") int categoryId,
 			@Param("title") String title,
 			@Param("content") String content);
+	
+	public Article selectArticle(
+			@Param("id") int articleId);
 	
 }
