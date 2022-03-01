@@ -10,6 +10,7 @@ import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
+import com.minieyes.stories.bbs.model.Comment;
 
 @Service
 public class BBSBO {
@@ -60,5 +61,13 @@ public class BBSBO {
 	
 	public int removeArticle(int articleId) {
 		return bbsDAO.deleteArticle(articleId);
+	}
+	
+	public int createNewComment(int articleId, int userId, String userName, String content) {
+		return bbsDAO.insertNewComment(articleId, userId, userName, content);
+	}
+	
+	public List<Comment> getComments(int articleId){
+		return bbsDAO.selectCommentByArticleId(articleId);
 	}
 }

@@ -9,6 +9,7 @@ import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
+import com.minieyes.stories.bbs.model.Comment;
 
 @Repository
 public interface BBSDAO {
@@ -40,5 +41,13 @@ public interface BBSDAO {
 			@Param("content") String content);
 	
 	public int deleteArticle(@Param("id") int articleId);
+	
+	public int insertNewComment(
+			@Param("articleId") int articleId,
+			@Param("userId") int userId,
+			@Param("userName") String userName,
+			@Param("content") String content);
+	
+	public List<Comment> selectCommentByArticleId(@Param("articleId") int articleId);
 	
 }

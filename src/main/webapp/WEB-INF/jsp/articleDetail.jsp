@@ -54,6 +54,7 @@
 				</div>
 				
 				<div class="me-2">
+					<c:if test="${userId eq article.userId}">
 					<div class="dropdown">
 						<a class="dropdown-toggle" href="#"
 							role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
@@ -64,6 +65,7 @@
 							<li><a class="dropdown-item" href="#" id="deleteArticleBtn" data-article-id="${article.id}" data-bbs-id="${bbs.id}">삭제</a></li>
 						</ul>
 					</div>
+					</c:if>
 				</div>
 			</div>
 			
@@ -81,13 +83,43 @@
 				</a>
 			</div>
 			
-			<div class="bg-warning mb-2 d-flex justify-content-between">
-				댓글들
-			</div>
+			<hr>
 			
-			<div class="bg-warning mb-2 d-flex justify-content-between">
-				댓글 작성
+			<div class="mb-2">
+				<c:forEach var="comment" items="${comments }">
+					<div class="mb-1">
+						<div class="commentUserNameBox p-1 d-flex justify-content-between">
+							<div>${comment.userName }</div>
+							<div class="commentTime d-flex align-items-center"><fmt:formatDate value="${comment.updatedAt}" pattern="yyyy-MM-dd hh:mm"/></div>
+						</div>
+						<div>${comment.content }</div>
+						<div class="d-flex justify-content-end mb-2">
+							<c:if test="${userName ne null}">
+								<div class="me-1">
+									<a href="#" class="text-decoration-none">댓글</a>
+								</div>
+							</c:if>
+							<c:if test="${comment.userId eq userId}">							
+								<div class="me-1">
+									<a href="#" class="text-decoration-none">삭제</a>
+								</div>
+							</c:if>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
+			<c:if test="${userName ne null}">
+				<div class="mb-2">
+					<div class="mb-1">
+						<input id="inputCommentContent" type="text" class="form-control form-control-sm">
+					</div>
+					<div class="d-flex justify-content-end">
+						<button id="inputCommentBtn" class="btn btn-sm btn-primary"
+						data-user-id="${userId}" data-article-id="${article.id}" data-user-name="${userName}"
+						>등록</button>
+					</div>
+				</div>
+			</c:if>
 						
 		</div>
 	

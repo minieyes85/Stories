@@ -82,4 +82,34 @@
 		}
 	});
 	
+	$("#inputCommentBtn").on("click", function(){
+		
+		var articleId = $(this).data("article-id");
+		var userId = $(this).data("user-id");
+		var userName = $(this).data("user-name");
+		var content = $("#inputCommentContent").val();
+		
+		$.ajax({
+			type: "post",
+			url: "/comment/create",
+			data: {
+				"articleId": articleId,
+				"userId": userId,
+				"userName": userName,
+				"content": content
+			},
+			success: function(data){
+				if(data.result == "success"){
+					alert("댓글이 등록 되었습니다.");
+					location.reload();
+				} else {
+					alert("댓글 등록에 실패하였습니다.");
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+		});
+	});
+	
 });

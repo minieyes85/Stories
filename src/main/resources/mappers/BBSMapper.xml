@@ -140,6 +140,53 @@
 			`id` = #{id}		
 	
 	</delete>
+	
+	<insert id="insertNewComment"
+		parameterType="map">
+		
+		INSERT INTO `comment`
+			( `articleId`
+			, `userId`
+			, `userName`
+			, `grpId`
+			, `depth`
+			, `content`
+			, `createdAt`
+			, `updatedAt`)
+		VALUE
+			( #{articleId}
+			, #{userId}
+			, #{userName}
+			, LAST_INSERT_ID()+1
+			, 1
+			, #{content}
+			, now()
+			, now())
+	
+	</insert>
+	
+	<select id="selectCommentByArticleId"
+		parameterType="int"
+		resultType="com.minieyes.stories.bbs.model.Comment">
+		
+		SELECT
+			`id`
+			, `articleId`
+			, `userId`
+			, `userName`
+			, `grpId`
+			, `depth`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`comment`
+		WHERE
+			`articleId` = #{articleId}
+		ORDER BY
+			`id`
+	
+	</select>
 
 
 </mapper>

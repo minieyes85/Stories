@@ -43,10 +43,17 @@
 					<i class="bi bi-search"></i> 검색	
 				</div>
 				
-				<div class="bbsBtn border rounded text-white p-1"
-					onclick="location.href='/article/createView?bbsId=${bbs.id}'">
-					글쓰기 <i class="bi bi-pencil-square"></i>				
-				</div>
+				
+				<c:choose>
+					<c:when test="${userName ne null}">
+						<div class="bbsBtn border rounded text-white p-1"
+							onclick="location.href='/article/createView?bbsId=${bbs.id}'">글쓰기 <i class="bi bi-pencil-square"></i>				
+						</div>
+					</c:when>
+					<c:when test="${userName eq null}">
+					
+					</c:when>				
+				</c:choose>
 			</div>
 			
 			<div>

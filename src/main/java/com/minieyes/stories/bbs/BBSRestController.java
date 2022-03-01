@@ -83,4 +83,24 @@ public class BBSRestController {
 
 		return result;	
 	}
+	
+	@PostMapping("/comment/create")
+	public Map<String, String> createComment(
+			@RequestParam("articleId") int articleId,
+			@RequestParam("userId") int userId,
+			@RequestParam("userName") String userName,
+			@RequestParam("content") String content){
+		
+		int count = bbsBO.createNewComment(articleId, userId, userName, content);		
+		
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+
+		return result;
+	}
 }

@@ -15,6 +15,7 @@ import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
+import com.minieyes.stories.bbs.model.Comment;
 
 @Controller
 public class BBSController {
@@ -75,6 +76,10 @@ public class BBSController {
 				
 		List<Category> categories = bbsBO.getCategories(article.getBbsId());
 		model.addAttribute("categories", categories);
+		
+		// 댓글들 불러오기
+		List<Comment> comments = bbsBO.getComments(articleId);
+		model.addAttribute("comments", comments);
 				
 		return "articleDetail";
 	}

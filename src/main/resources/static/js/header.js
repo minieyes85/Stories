@@ -21,7 +21,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "post",
-			url: "user/signIn",
+			url: "/user/signIn",
 			data: {
 				"loginId": signInId,
 				"password": signInPassword
