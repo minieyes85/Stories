@@ -201,6 +201,16 @@
 	
 	</delete>
 	
+	<delete id="deleteCommentByArticleId"
+		parameterType="int">
+		
+		DELETE FROM
+			`comment`
+		WHERE
+			`articleId` = #{articleId}
+	
+	</delete>
+	
 	<update id="updateComment"
 		parameterType="map">
 		

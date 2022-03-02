@@ -53,6 +53,8 @@ public interface BBSDAO {
 	
 	public int deleteComment(@Param("id") int commentId);
 	
+	public int deleteCommentByArticleId(@Param("articleId") int articleId);
+	
 	public int updateComment(
 			@Param("id") int commentId,
 			@Param("content") String content);

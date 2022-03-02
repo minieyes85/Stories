@@ -66,9 +66,12 @@ public class BBSBO {
 	
 	public int removeArticle(int articleId) {
 		
-		//삭제 대상 글 파일 삭제
+		//삭제 대상 게시글 파일 삭제
 		Article article = bbsDAO.selectArticle(articleId);
 		FileManagerService.removeFile(article.getImagePath());
+		
+		//삭제 대상 게시글 댓글 삭제
+		bbsDAO.deleteCommentByArticleId(articleId);
 		
 		return bbsDAO.deleteArticle(articleId);
 	}
