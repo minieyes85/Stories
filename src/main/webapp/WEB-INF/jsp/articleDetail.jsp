@@ -68,6 +68,11 @@
 					</c:if>
 				</div>
 			</div>
+			<c:if test="${article.imagePath ne null }">
+				<div class="ms-2 me-2 mb-5 d-flex justify-content-center">
+					<img id="articleImage"  src="${article.imagePath}"/>
+				</div>
+			</c:if>
 			
 			<div id="articleContent" class="ms-2 me-2 mb-5 d-flex justify-content-between">
 				${article.content}

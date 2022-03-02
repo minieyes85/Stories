@@ -72,6 +72,9 @@
 							<td>
 								[${article.categoryName }] 
 								<a href="/article/detailView?articleId=${article.articleId }" class="text-decoration-none text-black">${article.title }</a>
+								<c:if test="${article.imagePath ne null}">
+									<i class="bi bi-card-image"></i>
+								</c:if>
 							</td>
 							<td class="text-center">
 								${article.userName }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.minieyes.stories.bbs.dao.BBSDAO;
 import com.minieyes.stories.bbs.model.Article;
@@ -11,6 +12,7 @@ import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
+import com.minieyes.stories.common.FileManagerService;
 
 @Service
 public class BBSBO {
@@ -43,12 +45,15 @@ public class BBSBO {
 			int bbsId,
 			int categoryId,
 			String title,
-			String content) {
+			String content,
+			MultipartFile file) {
 		
 		//첨부파일 첨부 추가
+		String imagePath = FileManagerService.saveFile(userId, file);
+		
 		//태그 나눠서 저장 추가
 		
-		return bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content);
+		return bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content, imagePath);
 	}
 	
 	public Article getArticle(int articleId) {
@@ -60,6 +65,11 @@ public class BBSBO {
 	}
 	
 	public int removeArticle(int articleId) {
+		
+		//삭제 대상 글 파일 삭제
+		Article article = bbsDAO.selectArticle(articleId);
+		FileManagerService.removeFile(article.getImagePath());
+		
 		return bbsDAO.deleteArticle(articleId);
 	}
 	

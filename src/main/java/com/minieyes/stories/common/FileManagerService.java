@@ -14,8 +14,7 @@ import com.minieyes.stories.common.FileManagerService;
 
 public class FileManagerService {
 	
-	//public final String FILE_UPLOAD_PATH = "D:\\JSChoi_Web_development\\portfolio Project\\upload\\images/";
-	public final static String FILE_UPLOAD_PATH = "D:\\JSChoi_Web_development\\upload\\picstory\\images/";
+	public final static String FILE_UPLOAD_PATH = "D:\\JSChoi_Web_development\\upload\\images/";
 	
 	private static Logger logger = LoggerFactory.getLogger(FileManagerService.class);
 	

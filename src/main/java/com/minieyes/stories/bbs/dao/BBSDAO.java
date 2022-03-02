@@ -29,7 +29,8 @@ public interface BBSDAO {
 			@Param("bbsId") int bbsId,
 			@Param("categoryId") int categoryId,
 			@Param("title") String title,
-			@Param("content") String content);
+			@Param("content") String content,
+			@Param("imagePath") String imagePath);
 	
 	public Article selectArticle(
 			@Param("id") int articleId);

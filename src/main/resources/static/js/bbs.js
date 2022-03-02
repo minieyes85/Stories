@@ -27,15 +27,22 @@
 			return;
 		}
 		
+		var formData = new FormData();
+		formData.append("bbsId", bbsId);
+		formData.append("category", category);
+		formData.append("title", title);
+		formData.append("content", content);
+		formData.append("file", $("#createArticleFile")[0].files[0]);
+		
 		$.ajax({
 			type: "post",
 			url: "/article/create",
-			data: {
-				"bbsId": bbsId,
-				"category": category,
-				"title": title,
-				"content": content
-			},
+			data: formData,
+			
+			enctype:"multipart/form-data",
+			processData:false,
+			contentType:false,
+			
 			success: function(data){
 				if(data.result == "success"){
 					alert("글이 성공적으로 등록 되었습니다.");

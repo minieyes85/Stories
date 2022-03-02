@@ -8,6 +8,7 @@ public class BBSDTO {
 	private String categoryName;
 	private String title;
 	private String userName;
+	private String imagePath;
 	private int commentNo;
 	private int recommendNo;
 	private Date createdAt;
@@ -35,6 +36,12 @@ public class BBSDTO {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	public int getCommentNo() {
 		return commentNo;

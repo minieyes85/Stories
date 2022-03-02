@@ -44,6 +44,11 @@
 	color: grey;
 }
 
+#articleImage {
+	max-width: 50vw;
+	max-height: 50vh;
+}
+
 .commentUserNameBox{
 	background-color: #F1F7FF;
 	font-size: 15px;

@@ -55,6 +55,7 @@
 				, category.title AS categoryName
 			    , article.title AS title
 			    , article.userName AS userName
+			    , article.imagePath as imagePath
 			    , article.createdAt AS createdAt
 			FROM
 				`article`
@@ -101,6 +102,7 @@
 			, `depth`
 			, `title`
 			, `content`
+			, `imagePath`
 			, `createdAt`
 			, `updatedAt`)
 			VALUE
@@ -112,6 +114,7 @@
 			, 1
 			, #{title}
 			, #{content}
+			, #{imagePath}
 			, now()
 			, now())
 	

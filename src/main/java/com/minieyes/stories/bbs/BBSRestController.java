@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.minieyes.stories.bbs.bo.BBSBO;
 
@@ -25,6 +26,7 @@ public class BBSRestController {
 			@RequestParam("category") int categoryId,
 			@RequestParam("title") String title,
 			@RequestParam("content") String content,
+			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpServletRequest req){
 		
 		HttpSession session = req.getSession();
@@ -32,7 +34,7 @@ public class BBSRestController {
 		int userId = (Integer) session.getAttribute("userId");
 		String userName = (String) session.getAttribute("userName");
 		
-		int count = bbsBO.createNewArticle(userId, userName, bbsId, categoryId, title, content);
+		int count = bbsBO.createNewArticle(userId, userName, bbsId, categoryId, title, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 
