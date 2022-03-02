@@ -70,4 +70,12 @@ public class BBSBO {
 	public List<Comment> getComments(int articleId){
 		return bbsDAO.selectCommentByArticleId(articleId);
 	}
+	
+	public int removeComment(int commentId) {
+		return bbsDAO.deleteComment(commentId);
+	}
+	
+	public int modifyComment(int commentId, String content) {
+		return bbsDAO.updateComment(commentId, content);
+	}
 }

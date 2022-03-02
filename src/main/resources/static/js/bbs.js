@@ -112,4 +112,68 @@
 		});
 	});
 	
+	$(".commentDeleteBtn").on("click", function(){
+		
+		var flag = confirm("댓글을 삭제 하시겠습니까?");
+		
+		if(flag){
+			var commentId = $(this).data("comment-id");
+		
+			$.ajax({
+				type: "post",
+				url: "/comment/delete",
+				data: {
+					"commentId": commentId
+				},
+				success: function(data){
+					if(data.result == "success"){
+						alert("댓글이 삭제 되었습니다.");
+						location.reload();
+					} else {
+						alert("댓글 삭제에 실패하였습니다.");
+					}
+				},
+				error: function(){
+					alert("error");
+				}
+			});	
+		} else {
+			alert("댓글 삭제를 취소 하셨습니다.");
+		}		
+	});
+	
+	$(".commentUpdateBtn").on("click", function(){
+		var commentId = $(this).data("comment-id");
+		$("#commentContentBox"+commentId).attr("hidden", true);
+		$("#commentContentUpdateBox"+commentId).attr("hidden", false);
+	});
+	
+	$(".commentContentUpdateBtn").on("click", function(){
+		var commentId = $(this).data("comment-id");
+		var content = $("#commentContentUpdateInput"+commentId).val();
+				
+		$.ajax({
+			type: "post",
+			url: "/comment/update",
+			data: {
+				"commentId": commentId,
+				"content" : content
+			},
+			success: function(data) {
+				if (data.result == "success") {
+					location.reload();
+				} else {
+					alert("댓글 수정에 실패하였습니다.");
+				}
+			},
+			error: function() {
+				alert("error");
+			}
+		});
+		
+	});
+	
+	
+	
+	
 });

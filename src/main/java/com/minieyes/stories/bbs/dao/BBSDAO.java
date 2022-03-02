@@ -50,4 +50,10 @@ public interface BBSDAO {
 	
 	public List<Comment> selectCommentByArticleId(@Param("articleId") int articleId);
 	
+	public int deleteComment(@Param("id") int commentId);
+	
+	public int updateComment(
+			@Param("id") int commentId,
+			@Param("content") String content);
+	
 }

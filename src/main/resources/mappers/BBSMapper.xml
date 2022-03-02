@@ -187,6 +187,28 @@
 			`id`
 	
 	</select>
+	
+	<delete id="deleteComment"
+		parameterType="int">
+		
+		DELETE FROM
+			`comment`
+		WHERE
+			`id` = #{id}
+	
+	</delete>
+	
+	<update id="updateComment"
+		parameterType="map">
+		
+		UPDATE `comment`
+		SET
+			`content` = #{content},
+			`updatedAt` = now()
+		WHERE
+			`id` = #{id}
+			
+	</update>
 
 
 </mapper>
