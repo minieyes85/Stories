@@ -40,9 +40,11 @@
 					<tbody>
 						<c:forEach var="article" items="${bbsMap.value}">
 							<tr>
-								<td>
+								<td class="mainTable">
 									<span class="me-1">[${article.categoryName}]</span>
-									<span class="me-1">${article.title}</span>
+									<span class="me-1">
+										<a class="text-decoration-none text-black" href="/article/detailView?articleId=${article.articleId}">${article.title}</a>
+									</span>
 									<c:if test="${article.commentNo ne 0}">
 									<span class="text-primary">${article.commentNo }</span>	
 									</c:if>							

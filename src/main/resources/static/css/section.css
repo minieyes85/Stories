@@ -19,3 +19,7 @@ thead {
 tbody {
 	font-size: 14px;
 }
+
+.mainTable:hover {
+	background-color: #FAFAFA;
+}
