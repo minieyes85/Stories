@@ -222,6 +222,58 @@
 			`id` = #{id}
 			
 	</update>
+	
+	<select id="selectRecommend"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`recommend`
+		WHERE
+			`articleId` = #{articleId}
+			AND `userId` = #{userId}
+		
+	</select>
+	
+	<select id="selectRecommendByArticleId"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`recommend`
+		WHERE
+			`articleId` = #{articleId}
+		
+	</select>
+	
+	<insert id="insertRecommend"
+		parameterType="map">
+		
+		INSERT INTO
+			`recommend`
+			( `articleId`
+			, `userId`
+			, `createdAt`)
+		VALUE
+			( #{articleId}
+			, #{userId}
+			, now())
+	</insert>
+	
+	<delete id="deleteRecommend"
+		parameterType="map">
+		
+		DELETE FROM
+			`recommend`
+		WHERE
+			`articleId` = #{articleId}
+			AND `userId` = #{userId}
+		
+	</delete>
 
 
 </mapper>

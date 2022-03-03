@@ -49,7 +49,7 @@
 				<div class="ms-2">
 					<span>${article.userName}</span>
 					<span id="articleTime">
-						<fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd hh:mm"/>
+						<fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd HH:mm"/>
 					</span>
 				</div>
 				
@@ -78,8 +78,22 @@
 				${article.content}
 			</div>
 			
-			<div class="mb-2 d-flex justify-content-center">
-				<i class="bi bi-hand-thumbs-up"></i>추천하기 추천갯수
+			<div class="mb-2 d-flex justify-content-center align-items-center">
+				
+					<c:choose>
+						<c:when test="${isRecommend eq true}">
+							<button id="recommendBtn" class="btn btn-sm btn-primary me-2"
+								data-article-id="${article.id}" data-user-id="${userId}">
+								<i class="bi bi-hand-thumbs-up me-1"></i> <span>추천하기</span> <span>${recommendCount}</span>
+							</button>
+						</c:when>
+						<c:when test="${isRecommend ne true}">
+							<button id="recommendBtn" class="btn btn-sm btn-light me-2"
+								data-article-id="${article.id}" data-user-id="${userId}">
+								<i class="bi bi-hand-thumbs-up me-1"></i> <span>추천하기</span> <span>${recommendCount}</span>
+							</button>
+						</c:when>
+					</c:choose>
 			</div>
 			
 			<div class="mb-2">
@@ -95,7 +109,7 @@
 					<div class="mb-1">
 						<div class="commentUserNameBox p-1 mb-1 d-flex justify-content-between">
 							<div>${comment.userName }</div>
-							<div class="commentTime d-flex align-items-center"><fmt:formatDate value="${comment.updatedAt}" pattern="yyyy-MM-dd hh:mm"/></div>
+							<div class="commentTime d-flex align-items-center"><fmt:formatDate value="${comment.updatedAt}" pattern="yyyy-MM-dd HH:mm"/></div>
 						</div>
 						<div id="commentContentBox${comment.id}" class="mb-2">${comment.content }</div>
 						<div id="commentContentUpdateBox${comment.id}" class="mb-2 me-1" hidden="true">

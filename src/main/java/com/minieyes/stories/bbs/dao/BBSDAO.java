@@ -59,4 +59,19 @@ public interface BBSDAO {
 			@Param("id") int commentId,
 			@Param("content") String content);
 	
+	public int selectRecommend(
+			@Param("articleId") int articleId,
+			@Param("userId") int userId);
+	
+	public int insertRecommend(
+			@Param("articleId") int articleId,
+			@Param("userId") int userId);
+	
+	public int deleteRecommend(
+			@Param("articleId") int articleId,
+			@Param("userId") int userId);
+	
+	public int selectRecommendByArticleId(@Param("articleId") int articleId);
+	
+	
 }

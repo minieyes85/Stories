@@ -91,4 +91,31 @@ public class BBSBO {
 	public int modifyComment(int commentId, String content) {
 		return bbsDAO.updateComment(commentId, content);
 	}
+	
+	public int recommend(int articleId, int userId) {
+		
+		// 추천이 있는지 확인
+		int count = bbsDAO.selectRecommend(articleId, userId);
+		
+		if(count == 0) {
+			return bbsDAO.insertRecommend(articleId, userId);
+		} else {
+			return bbsDAO.deleteRecommend(articleId, userId);
+		}	
+	}
+	
+	public int getRecommend(int articleId) {
+		return bbsDAO.selectRecommendByArticleId(articleId);
+	}
+	
+	public boolean getIsRecommend(int articleId, int userId) {
+		
+		int count = bbsDAO.selectRecommend(articleId, userId);
+		
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}		
+	}	
 }

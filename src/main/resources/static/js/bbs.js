@@ -180,6 +180,36 @@
 		
 	});
 	
+	$("#recommendBtn").on("click",function(){
+		var articleId = $(this).data("article-id");
+		var userId = $(this).data("user-id");
+		
+		if(userId == ""){
+			alert("로그인이 필요합니다.");
+			return;
+		}
+		
+		$.ajax({
+			type: "get",
+			url: "/recommend",
+			data: {
+				"articleId": articleId
+			},
+			success: function(data) {
+				if (data.result == "success") {
+					location.reload();
+				} else {
+					alert("추천에 실패하였습니다.");
+				}
+			},
+			error: function() {
+				alert("error");
+			}
+		})
+
+
+	});
+	
 	
 	
 	

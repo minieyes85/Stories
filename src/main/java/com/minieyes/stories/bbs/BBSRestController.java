@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -138,5 +139,27 @@ public class BBSRestController {
 		}
 
 		return result;		
+	}
+	
+	@GetMapping("/recommend")
+	public Map<String, String> recommend(
+			@RequestParam("articleId") int articleId,
+			HttpServletRequest req){
+		
+		HttpSession session = req.getSession();
+		int userId = (Integer) session.getAttribute("userId");
+		
+		int count = bbsBO.recommend(articleId, userId);
+		
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
 	}
 }

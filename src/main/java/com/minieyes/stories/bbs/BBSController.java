@@ -3,6 +3,7 @@ package com.minieyes.stories.bbs;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,7 +64,9 @@ public class BBSController {
 	@GetMapping("/article/detailView")
 	public String articleDetailView(
 			@RequestParam("articleId") int articleId,
+			HttpServletRequest req,
 			Model model) {
+		
 		
 		List<BBS> allbbs = bbsBO.showAllBBS();
 		model.addAttribute("allbbs", allbbs);
@@ -76,6 +79,28 @@ public class BBSController {
 				
 		List<Category> categories = bbsBO.getCategories(article.getBbsId());
 		model.addAttribute("categories", categories);
+		
+		// 추천 불러오기
+		// 추천 갯수
+		int recommendCount = bbsBO.getRecommend(articleId);
+		model.addAttribute("recommendCount", recommendCount);
+		
+		HttpSession session = req.getSession();
+		
+		int userId;
+		boolean isRecommend;
+		
+		if(session.getAttribute("userId") == null) {
+			isRecommend = false;	
+		} else {
+			userId = (Integer) session.getAttribute("userId");
+			// 사용자가 추천 했는지?
+			isRecommend = bbsBO.getIsRecommend(articleId, userId);
+		}
+		
+		model.addAttribute("isRecommend", isRecommend);
+
+		
 		
 		// 댓글들 불러오기
 		List<Comment> comments = bbsBO.getComments(articleId);
