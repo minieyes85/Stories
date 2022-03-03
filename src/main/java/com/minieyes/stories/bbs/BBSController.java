@@ -1,5 +1,6 @@
 package com.minieyes.stories.bbs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,18 +27,75 @@ public class BBSController {
 	
 	@GetMapping("/bbs")
 	public String bbsView(
-			@RequestParam(value="bbsId", required=false) int id,
+			@RequestParam(value="bbsId", required=false) int bbsId,
+			@RequestParam(value="page", required=false, defaultValue="1") Integer pageNo,
 			Model model) {
-		
+		// header 게시판 표시
 		List<BBS> allbbs = bbsBO.showAllBBS();
-				
-		BBS bbs = bbsBO.getBBS(id);
-		List<Category> categories = bbsBO.getCategories(id);
-		List<BBSDTO> articles = bbsBO.showBBS(id);
-		model.addAttribute("bbs", bbs);
-		model.addAttribute("categories", categories);
-		model.addAttribute("articles", articles);
 		model.addAttribute("allbbs", allbbs);
+		
+		// target 게시판 표시
+		BBS bbs = bbsBO.getBBS(bbsId);
+		model.addAttribute("bbs", bbs);
+		List<Category> categories = bbsBO.getCategories(bbsId);
+		model.addAttribute("categories", categories);
+		
+		// 게시판 게시글 표시
+		List<BBSDTO> articles = bbsBO.showBBS(bbsId);
+		model.addAttribute("articles", articles);
+		
+		// 페이지표시
+		// 페이지수 없을떄
+		if(pageNo == null) {
+			pageNo = 1;			
+		}
+		
+		List<Integer> pageNOs = new ArrayList<>();
+
+		// 총 페이지
+		int lastPageNo = bbsBO.getLastPageNo(bbsId);
+		
+		// 총 페이지 < 10
+		if(lastPageNo < 10) {
+			for(int i = 1; i <= lastPageNo; i++ ) {
+				pageNOs.add(i);
+			}
+			model.addAttribute("fwdPage", null);
+			model.addAttribute("awdPage", null);
+		// 총 페이지 >= 10
+		} else {
+			
+			// 페이지 초반 <= 5
+			if(pageNo <= 5) {
+				for(int i = 1 ; i < 10 ; i++) {
+					pageNOs.add(i);						
+				}
+				model.addAttribute("fwdPage", null);
+				model.addAttribute("awdPage", 10);
+				
+			// 페이지 중반
+			} else if((pageNo > 5) && (pageNo <= lastPageNo - 5)) {
+				for(int i = pageNo-4 ; i < pageNo+5 ; i++) {
+					pageNOs.add(i);
+				}
+				int fwdPage = pageNo - 5;
+				model.addAttribute("fwdPage", fwdPage);
+				int awdPage = pageNo + 5;
+				model.addAttribute("awdPage", awdPage);
+				
+			// 페이지 후반 >= lastPageNo - 5
+	 		} else {
+	 			for(int i = lastPageNo-8 ; i <= lastPageNo ; i++) {
+	 				pageNOs.add(i);
+	 			}
+	 			int fwdPage = lastPageNo-9;
+	 			model.addAttribute("fwdPage", fwdPage);
+	 			model.addAttribute("awdPage", null);	 			
+	 		}
+		}		
+		
+		model.addAttribute("pageNOs", pageNOs);
+		model.addAttribute("pageNO", pageNo);
 		
 		return "bbs";
 	}

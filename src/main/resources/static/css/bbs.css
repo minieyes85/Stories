@@ -24,4 +24,19 @@
 	cursor: pointer;
 }
 
+.pageListCell {
+	width: 40px;
+	cursor: pointer;
+}
+
+.pageListCell:hover {
+	background-color: #2E4361;
+	color: white;
+	font-weight: bold;
+}
+
+.pageListNone {
+	width: 40px;
+}
+
 

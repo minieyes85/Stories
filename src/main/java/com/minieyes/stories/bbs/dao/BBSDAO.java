@@ -35,6 +35,8 @@ public interface BBSDAO {
 	public Article selectArticle(
 			@Param("id") int articleId);
 	
+	public int selectCountArticleByBBSID(@Param("bbsId") int bbsId);
+	
 	public int updateArticle(
 			@Param("id") int articleId,
 			@Param("categoryId") int categoryId,
@@ -50,6 +52,8 @@ public interface BBSDAO {
 			@Param("content") String content);
 	
 	public List<Comment> selectCommentByArticleId(@Param("articleId") int articleId);
+	
+	public int selectCommentCountByArticleId(@Param("articleId") int articleId);
 	
 	public int deleteComment(@Param("id") int commentId);
 	

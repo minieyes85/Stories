@@ -63,6 +63,7 @@
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
 			ORDER BY articleId DESC
+			LIMIT 20 OFFSET 0
 	
 	</select>
 	
@@ -88,6 +89,19 @@
 		WHERE
 			`id` = #{id}
 	
+	</select>
+	
+	<select id="selectCountArticleByBBSID"
+		parameterType="int"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`article`
+		WHERE
+			`bbsId` = #{bbsId}
+			
 	</select>
 	
 	<insert id="insertNewArticle"
@@ -189,6 +203,19 @@
 		ORDER BY
 			`id`
 	
+	</select>
+	
+	<select id="selectCommentCountByArticleId"
+		parameterType="int"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`comment`
+		WHERE
+			`articleId` = #{articleId}
+		
 	</select>
 	
 	<delete id="deleteComment"

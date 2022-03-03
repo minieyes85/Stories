@@ -67,19 +67,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="article" items="${articles }">
+						<c:forEach var="article" items="${articles}">
 						<tr>
 							<td>
 								[${article.categoryName }] 
 								<a href="/article/detailView?articleId=${article.articleId }" class="text-decoration-none text-black">${article.title }</a>
 								<c:if test="${article.imagePath ne null}">
-									<i class="bi bi-card-image"></i>
+									<i class="bi bi-card-image ms-1"></i>
 								</c:if>
+								<c:if test="${article.commentNo > 0}">
+									<span class="ms-1">${article.commentNo}</span>
+								</c:if>
+								
 							</td>
 							<td class="text-center">
 								${article.userName }
 							</td>
-							<td>
+							<td class="text-center">
+								${article.recommendNo }
 							</td>
 							<td class="text-center">
 								<fmt:formatDate value="${article.createdAt }" pattern="yy-MM-dd HH:mm"/>
@@ -89,10 +94,52 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	
-	
-	
+			
+			<div class="d-flex justify-content-center">
+				<table class="text-center">
+					<tr>
+						<c:choose>
+							<c:when test="${fwdPage ne null}">
+								<td class="pageListCell rounded"
+								onclick="location.href='/bbs?bbsId=${bbs.id}&page=${fwdPage}'"><i class="bi bi-skip-backward"></i></td>
+							</c:when>
+							<c:when test="${fwdPage eq null }">
+								<td class="pageListNone"></td>
+							</c:when>
+						</c:choose>
+						
+						<c:forEach var="pageNo" items="${pageNOs}">
+							<c:choose>
+								<c:when test="${pageNo eq pageNO}">
+									<td class="pageListCell rounded fw-bold"
+									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
+								</c:when>
+								<c:when test="${pageNo ne pageNO}">
+									<td class="pageListCell rounded"
+									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						
+						<c:choose>
+							<c:when test="${awdPage ne null}">
+								<td class="pageListCell rounded"
+							onclick="location.href='/bbs?bbsId=${bbs.id}&page=${awdPage}'"><i class="bi bi-skip-forward"></i></td>
+							</c:when>
+							<c:when test="${awdPage eq null }">
+								<td class="pageListNone"></td>
+							</c:when>
+						</c:choose>
+						
+					</tr>
+				</table>
+			</div>
+			
+			
+			
+			
+			
+		</div>	
 	</section>
 	
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>

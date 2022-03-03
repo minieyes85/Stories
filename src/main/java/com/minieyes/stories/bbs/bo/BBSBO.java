@@ -34,9 +34,18 @@ public class BBSBO {
 	
 	public List<BBSDTO> showBBS(int bbsId){
 		
-		//추가로 댓글 추천 갯수 DTO에 포함시킬것
+		//댓글 추천 갯수 포함
+		List<BBSDTO> bbsDTOs = bbsDAO.selectBBS(bbsId);
 		
-		return bbsDAO.selectBBS(bbsId);
+		for(BBSDTO bbsDTO : bbsDTOs) {
+			int articleId = bbsDTO.getArticleId();
+			int countComment = bbsDAO.selectCommentCountByArticleId(articleId);
+			int countRecommend = bbsDAO.selectRecommendByArticleId(articleId);
+			bbsDTO.setCommentNo(countComment);
+			bbsDTO.setRecommendNo(countRecommend);
+		}
+				
+		return bbsDTOs;
 	}
 	
 	public int createNewArticle(
@@ -117,5 +126,19 @@ public class BBSBO {
 		} else {
 			return true;
 		}		
-	}	
+	}
+	
+	public int getLastPageNo(int bbsId) {
+		
+		int articleCount = bbsDAO.selectCountArticleByBBSID(bbsId);
+		int pageNo = 0;
+		
+		if(articleCount%20 > 0) {
+			pageNo = articleCount / 20 + 1;
+		} else {
+			pageNo = articleCount / 20;
+		}
+		
+		return pageNo;		
+	}
 }

@@ -148,8 +148,7 @@
 						>등록</button>
 					</div>
 				</div>
-			</c:if>
-						
+			</c:if>						
 		</div>
 	
 	
