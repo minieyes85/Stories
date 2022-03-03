@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
-import com.minieyes.stories.bbs.model.BBSDTO;
+import com.minieyes.stories.bbs.model.ArticleDTO;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
 
@@ -20,7 +20,10 @@ public interface BBSDAO {
 	
 	public List<Category> selectCategoriesByBBS(@Param("bbsId") int bbsId);
 	
-	public List<BBSDTO> selectBBS(
+	public List<ArticleDTO> selectBBS(
+			@Param("bbsId") int bbsId);
+	
+	public List<ArticleDTO> selectBBSForMain(
 			@Param("bbsId") int bbsId);
 	
 	public int insertNewArticle(

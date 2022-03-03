@@ -8,8 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.minieyes.stories.bbs.dao.BBSDAO;
 import com.minieyes.stories.bbs.model.Article;
+import com.minieyes.stories.bbs.model.ArticleDTO;
 import com.minieyes.stories.bbs.model.BBS;
-import com.minieyes.stories.bbs.model.BBSDTO;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
 import com.minieyes.stories.common.FileManagerService;
@@ -32,12 +32,12 @@ public class BBSBO {
 		return bbsDAO.selectCategoriesByBBS(bbsId);
 	}
 	
-	public List<BBSDTO> showBBS(int bbsId){
+	public List<ArticleDTO> showBBS(int bbsId){
 		
 		//댓글 추천 갯수 포함
-		List<BBSDTO> bbsDTOs = bbsDAO.selectBBS(bbsId);
+		List<ArticleDTO> bbsDTOs = bbsDAO.selectBBS(bbsId);
 		
-		for(BBSDTO bbsDTO : bbsDTOs) {
+		for(ArticleDTO bbsDTO : bbsDTOs) {
 			int articleId = bbsDTO.getArticleId();
 			int countComment = bbsDAO.selectCommentCountByArticleId(articleId);
 			int countRecommend = bbsDAO.selectRecommendByArticleId(articleId);
@@ -140,5 +140,16 @@ public class BBSBO {
 		}
 		
 		return pageNo;		
+	}
+		
+	public List<ArticleDTO> getMainBBS(int bbsId){
+		List<ArticleDTO> articles = bbsDAO.selectBBSForMain(bbsId);
+		for(ArticleDTO article:articles) {
+			// 댓글 갯수 추가
+			int articleId = article.getArticleId();
+			article.setCommentNo(bbsDAO.selectCommentCountByArticleId(articleId));
+		}
+		
+		return articles;
 	}
 }

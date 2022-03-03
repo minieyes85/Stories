@@ -24,28 +24,35 @@
 
 	<section class="d-flex justify-content-center">
 		<div id="mainForm" class="bg-white d-flex align-content-start flex-wrap">
-			<c:forEach var="bbs" items="${allbbs }">
+			<c:forEach var="bbs" items="${allBBSForMain }">
+			<c:forEach var="bbsMap" items="${bbs}">
 			<div class="subForm">
 				<table class="table table-sm">
 					<thead>
 						<tr>
 							<td>
-								<a href="/bbs?bbsId=${bbs.id }" class="text-decoration-none">
-									${bbs.title }								
+								<a href="/bbs?bbsId=${bbsMap.key.id }" class="text-decoration-none">
+									${bbsMap.key.title }								
 								</a>
 							</td>							
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>					
-						</tr>
-						<tr>
-							<td>1</td>				
-						</tr>
+						<c:forEach var="article" items="${bbsMap.value}">
+							<tr>
+								<td>
+									<span class="me-1">[${article.categoryName}]</span>
+									<span class="me-1">${article.title}</span>
+									<c:if test="${article.commentNo ne 0}">
+									<span class="text-primary">${article.commentNo }</span>	
+									</c:if>							
+								</td>					
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
+			</c:forEach>
 			</c:forEach>
 		</div>
 	

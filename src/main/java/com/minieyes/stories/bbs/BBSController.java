@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.minieyes.stories.bbs.bo.BBSBO;
 import com.minieyes.stories.bbs.model.Article;
 import com.minieyes.stories.bbs.model.BBS;
-import com.minieyes.stories.bbs.model.BBSDTO;
+import com.minieyes.stories.bbs.model.ArticleDTO;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
 
@@ -41,7 +41,7 @@ public class BBSController {
 		model.addAttribute("categories", categories);
 		
 		// 게시판 게시글 표시
-		List<BBSDTO> articles = bbsBO.showBBS(bbsId);
+		List<ArticleDTO> articles = bbsBO.showBBS(bbsId);
 		model.addAttribute("articles", articles);
 		
 		// 페이지표시

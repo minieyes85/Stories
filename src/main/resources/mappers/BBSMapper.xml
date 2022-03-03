@@ -15,6 +15,8 @@
 			, `title`
 		FROM
 			`bbs`
+		ORDER BY
+			`id`
 	
 	</select>
 
@@ -48,7 +50,7 @@
 	
 	<select id="selectBBS"
 		parameterType="int"
-		resultType="com.minieyes.stories.bbs.model.BBSDTO">
+		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
 		
 			SELECT
 				article.id AS articleId
@@ -64,6 +66,27 @@
 			WHERE bbs.id = #{bbsId}
 			ORDER BY articleId DESC
 			LIMIT 20 OFFSET 0
+	
+	</select>
+	
+	<select id="selectBBSForMain"
+		parameterType="int"
+		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
+		
+			SELECT
+				article.id AS articleId
+				, category.title AS categoryName
+			    , article.title AS title
+			    , article.userName AS userName
+			    , article.imagePath as imagePath
+			    , article.createdAt AS createdAt
+			FROM
+				`article`
+			JOIN `bbs` ON article.bbsId = bbs.id
+			JOIN `category` ON article.categoryId = category.id
+			WHERE bbs.id = #{bbsId}
+			ORDER BY articleId DESC
+			LIMIT 12
 	
 	</select>
 	
