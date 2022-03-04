@@ -65,7 +65,7 @@
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
 			ORDER BY articleId DESC
-			LIMIT 20 OFFSET 0
+			LIMIT 20 OFFSET #{offset}
 	
 	</select>
 	
@@ -125,6 +125,34 @@
 		WHERE
 			`bbsId` = #{bbsId}
 			
+	</select>
+	
+	<select id="selectArticleIdAtMoment"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			`id`
+		FROM
+			`article`
+		WHERE
+			`userId` = #{userId}
+		AND `userName` = #{userName}
+		AND `title` = #{title}
+	
+	</select>
+	
+	<select id="selectAllTagsByArticleId"
+		parameterType="int"
+		resultType="String">
+		
+		SELECT
+			`title`
+		FROM
+			`tag`
+		WHERE
+			`articleId` = #{articleId}
+		
 	</select>
 	
 	<insert id="insertNewArticle"
@@ -323,6 +351,57 @@
 			`articleId` = #{articleId}
 			AND `userId` = #{userId}
 		
+	</delete>
+	
+	<insert id="insertTag"
+		parameterType="map">
+	
+		INSERT INTO
+			`tag`
+			( `articleId`
+			, `title`
+			, `createdAt` )
+		VALUE
+			( #{articleId}
+			, #{title}
+			, now() )
+	
+	</insert>
+	
+	<select id="selectTagsByArticleId"
+		parameterType="int"
+		resultType="map">
+	
+		SELECT
+			`id`
+			, `articleId`
+			, `title`
+			, `createdAt`
+		FROM
+			`tag`
+		WHERE
+			`articleId` = #{articleId}
+		
+	</select>
+	
+	<delete id="deleteTag"
+		parameterType="int">
+		
+		DELETE FROM
+			`tag`
+		WHERE
+			`id` = #{id}
+	
+	</delete>
+	
+	<delete id="deleteTagByArticleId"
+		parameterType="int">
+		
+		DELETE FROM
+			`tag`
+		WHERE
+			`articleId` = #{articleId}
+	
 	</delete>
 
 

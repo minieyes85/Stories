@@ -28,6 +28,7 @@ public class BBSRestController {
 			@RequestParam("title") String title,
 			@RequestParam("content") String content,
 			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "tags", required = false) String tags,
 			HttpServletRequest req){
 		
 		HttpSession session = req.getSession();
@@ -35,7 +36,7 @@ public class BBSRestController {
 		int userId = (Integer) session.getAttribute("userId");
 		String userName = (String) session.getAttribute("userName");
 		
-		int count = bbsBO.createNewArticle(userId, userName, bbsId, categoryId, title, content, file);
+		int count = bbsBO.createNewArticle(userId, userName, bbsId, categoryId, title, content, file, tags);
 		
 		Map<String, String> result = new HashMap<>();
 
@@ -43,7 +44,7 @@ public class BBSRestController {
 			result.put("result", "success");
 		} else {
 			result.put("result", "fail");			
-		}		
+		}
 		
 		return result;
 		
@@ -159,7 +160,24 @@ public class BBSRestController {
 			result.put("result", "fail");
 		}
 		
-		return result;
-		
+		return result;		
 	}
+	
+	@PostMapping("/tag/delete")
+	public Map<String, String> deleteTag(
+			@RequestParam("tagId") int tagId){
+		
+		int count = bbsBO.removeTag(tagId);
+		
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;	
+		
+	};
 }

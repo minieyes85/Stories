@@ -9,7 +9,6 @@
 		var category = $("#createArticleCategory").val();
 		var title = $("#createArticleTitle").val();
 		var content = $("#createArticleContent").val();
-		var file = $("#createArticleFile").val();
 		var tag = $("#createArticleTag").val();
 		
 		if(category == 999){
@@ -33,6 +32,7 @@
 		formData.append("title", title);
 		formData.append("content", content);
 		formData.append("file", $("#createArticleFile")[0].files[0]);
+		formData.append("tags", tag);
 		
 		$.ajax({
 			type: "post",

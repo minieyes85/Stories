@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.minieyes.stories.bbs.bo.BBSBO;
 import com.minieyes.stories.bbs.model.Article;
-import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.ArticleDTO;
+import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
+import com.minieyes.stories.bbs.model.Tag;
 
 @Controller
 public class BBSController {
@@ -39,10 +40,6 @@ public class BBSController {
 		model.addAttribute("bbs", bbs);
 		List<Category> categories = bbsBO.getCategories(bbsId);
 		model.addAttribute("categories", categories);
-		
-		// 게시판 게시글 표시
-		List<ArticleDTO> articles = bbsBO.showBBS(bbsId);
-		model.addAttribute("articles", articles);
 		
 		// 페이지표시
 		// 페이지수 없을떄
@@ -96,6 +93,13 @@ public class BBSController {
 		
 		model.addAttribute("pageNOs", pageNOs);
 		model.addAttribute("pageNO", pageNo);
+		
+
+		// 게시판 게시글 표시
+		List<ArticleDTO> articles = bbsBO.showBBS(bbsId, pageNo);
+		model.addAttribute("articles", articles);
+		
+				
 		
 		return "bbs";
 	}
@@ -157,13 +161,16 @@ public class BBSController {
 		}
 		
 		model.addAttribute("isRecommend", isRecommend);
-
-		
 		
 		// 댓글들 불러오기
 		List<Comment> comments = bbsBO.getComments(articleId);
 		model.addAttribute("comments", comments);
-				
+
+		// 태그들 불러오기
+		List<Tag> tags = bbsBO.getTags(articleId);
+		model.addAttribute("tags", tags);
+		
+		
 		return "articleDetail";
 	}
 	
@@ -185,7 +192,10 @@ public class BBSController {
 		List<Category> categories = bbsBO.getCategories(article.getBbsId());
 		model.addAttribute("categories", categories);
 		
-		
+		// 태그들 불러오기
+		List<Tag> tags = bbsBO.getTags(articleId);
+		model.addAttribute("tags", tags);
+				
 		return "articleUpdate";
 	}
 }

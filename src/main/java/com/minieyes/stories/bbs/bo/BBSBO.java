@@ -1,5 +1,6 @@
 package com.minieyes.stories.bbs.bo;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.minieyes.stories.bbs.model.ArticleDTO;
 import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
+import com.minieyes.stories.bbs.model.Tag;
 import com.minieyes.stories.common.FileManagerService;
 
 @Service
@@ -32,10 +34,10 @@ public class BBSBO {
 		return bbsDAO.selectCategoriesByBBS(bbsId);
 	}
 	
-	public List<ArticleDTO> showBBS(int bbsId){
+	public List<ArticleDTO> showBBS(int bbsId, int pageNo){
 		
 		//댓글 추천 갯수 포함
-		List<ArticleDTO> bbsDTOs = bbsDAO.selectBBS(bbsId);
+		List<ArticleDTO> bbsDTOs = bbsDAO.selectBBS(bbsId, (pageNo-1)*20);
 		
 		for(ArticleDTO bbsDTO : bbsDTOs) {
 			int articleId = bbsDTO.getArticleId();
@@ -55,14 +57,41 @@ public class BBSBO {
 			int categoryId,
 			String title,
 			String content,
-			MultipartFile file) {
+			MultipartFile file,
+			String tagsString) {
 		
 		//첨부파일 첨부 추가
 		String imagePath = FileManagerService.saveFile(userId, file);
 		
-		//태그 나눠서 저장 추가
+		int count = bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content, imagePath);
 		
-		return bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content, imagePath);
+		if(count == 1 ) {
+			
+			// 지금 추가한 글 id 조회
+			int articleId = bbsDAO.selectArticleIdAtMoment(userId, userName, title);
+			
+			//태그 나누기
+			String[] tagStringArray = tagsString.split(",");
+			
+			//중복제거
+			LinkedHashSet<String> tags = new LinkedHashSet<>();
+			for(String tag:tagStringArray) {
+				String trimedTag = tag.trim();
+				tags.add(trimedTag);
+			}
+			
+			// 각 태그 db에 추가
+			for(String tag:tags) {
+				bbsDAO.insertTag(articleId, tag);
+			}
+			
+			return count;
+			
+		} else {
+			
+			return count;
+		}		
+		 
 	}
 	
 	public Article getArticle(int articleId) {
@@ -81,6 +110,9 @@ public class BBSBO {
 		
 		//삭제 대상 게시글 댓글 삭제
 		bbsDAO.deleteCommentByArticleId(articleId);
+		
+		//삭제 대상 게시글 태그 삭제
+		bbsDAO.deleteTagByArticleId(articleId);
 		
 		return bbsDAO.deleteArticle(articleId);
 	}
@@ -151,5 +183,13 @@ public class BBSBO {
 		}
 		
 		return articles;
+	}
+	
+	public List<Tag> getTags(int articleId){
+		return bbsDAO.selectTagsByArticleId(articleId);
+	}
+	
+	public int removeTag(int tagId) {
+		return bbsDAO.deleteTag(tagId);
 	}
 }

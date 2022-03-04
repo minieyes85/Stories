@@ -78,6 +78,18 @@
 				${article.content}
 			</div>
 			
+			<div>
+			<c:choose>
+				<c:when test="${tags eq null}">
+				</c:when>
+				<c:when test="${tags ne null }">
+					<c:forEach var="tag" items="${tags }">
+						<button class="btn btn-sm btn-light disabled">${tag.title }</button>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+			</div>
+			
 			<div class="mb-2 d-flex justify-content-center align-items-center">
 				
 					<c:choose>

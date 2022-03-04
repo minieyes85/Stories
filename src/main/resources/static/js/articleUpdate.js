@@ -51,5 +51,28 @@ $(document).ready(function(){
 			}
 		});
 				
-	});	
+	});
+	
+	$(".deleteTagBtn").on("click", function(){
+		
+		var tagId = $(this).data("tag-id");
+				
+		$.ajax({
+			type: "post",
+			url: "/tag/delete",
+			data: {
+				"tagId": tagId
+			},
+			success: function(data){
+				if(data.result == "success"){
+					location.reload();
+				} else {
+					alert("태그를 삭제하는데 실패했습니다.");
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+		});
+	});
 });

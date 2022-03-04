@@ -57,6 +57,18 @@
 				<input id="updateArticleTag" type="text" class="form-control form-control-sm" placeholder="쉼표(,)를 이용하여 복수 등록">
 			</div>
 			
+			<div>
+			<c:choose>
+				<c:when test="${tags eq null}">
+				</c:when>
+				<c:when test="${tags ne null }">
+					<c:forEach var="tag" items="${tags }">
+						<button class="deleteTagBtn btn btn-sm btn-light" data-tag-id="${tag.id}">${tag.title } X</button>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+			</div>
+			
 			<div class="d-flex justify-content-end">
 				<button id="updateArticleBtn" class="btn btn-primary" data-article-id="${article.id}" data-bbs-id="${bbs.id}">글 수정</button>
 			</div>
