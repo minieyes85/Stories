@@ -49,7 +49,7 @@
 	</select>
 	
 	<select id="selectBBS"
-		parameterType="int"
+		parameterType="map"
 		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
 		
 			SELECT
@@ -64,6 +64,28 @@
 			JOIN `bbs` ON article.bbsId = bbs.id
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
+			ORDER BY articleId DESC
+			LIMIT 20 OFFSET #{offset}
+	
+	</select>
+	
+	<select id="selectSearchBBS"
+		parameterType="map"
+		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
+		
+			SELECT
+				article.id AS articleId
+				, category.title AS categoryName
+			    , article.title AS title
+			    , article.userName AS userName
+			    , article.imagePath as imagePath
+			    , article.createdAt AS createdAt
+			FROM
+				`article`
+			JOIN `bbs` ON article.bbsId = bbs.id
+			JOIN `category` ON article.categoryId = category.id
+			WHERE bbs.id = #{bbsId}
+			AND article.title LIKE CONCAT("%", #{search}, "%") 
 			ORDER BY articleId DESC
 			LIMIT 20 OFFSET #{offset}
 	
@@ -124,6 +146,20 @@
 			`article`
 		WHERE
 			`bbsId` = #{bbsId}
+			
+	</select>
+	
+	<select id="selectCountArticleByBBSIDAndSearch"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`article`
+		WHERE
+			`bbsId` = #{bbsId}
+		AND article.title LIKE CONCAT("%", #{search}, "%")
 			
 	</select>
 	

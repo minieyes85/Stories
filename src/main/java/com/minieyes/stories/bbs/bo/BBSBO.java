@@ -50,6 +50,24 @@ public class BBSBO {
 		return bbsDTOs;
 	}
 	
+	public List<ArticleDTO> searchBBS(int bbsId, int pageNo, String search){
+		
+		int offset = (pageNo-1)*20;
+		
+		//댓글 추천 갯수 포함
+		List<ArticleDTO> bbsDTOs = bbsDAO.selectSearchBBS(bbsId, search, offset);
+		
+		for(ArticleDTO bbsDTO : bbsDTOs) {
+			int articleId = bbsDTO.getArticleId();
+			int countComment = bbsDAO.selectCommentCountByArticleId(articleId);
+			int countRecommend = bbsDAO.selectRecommendByArticleId(articleId);
+			bbsDTO.setCommentNo(countComment);
+			bbsDTO.setRecommendNo(countRecommend);
+		}
+				
+		return bbsDTOs;
+	}
+	
 	public int createNewArticle(
 			int userId,
 			String userName,
@@ -173,6 +191,22 @@ public class BBSBO {
 		
 		return pageNo;		
 	}
+	
+	public int getLastPageNoOnSearch(int bbsId, String search) {
+		
+		int articleCount = bbsDAO.selectCountArticleByBBSIDAndSearch(bbsId, search);
+		int pageNo = 0;
+		
+		if(articleCount%20 > 0) {
+			pageNo = articleCount / 20 + 1;
+		} else {
+			pageNo = articleCount / 20;
+		}
+		
+		return pageNo;		
+	}
+	
+	
 		
 	public List<ArticleDTO> getMainBBS(int bbsId){
 		List<ArticleDTO> articles = bbsDAO.selectBBSForMain(bbsId);

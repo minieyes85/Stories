@@ -25,6 +25,11 @@ public interface BBSDAO {
 			@Param("bbsId") int bbsId,
 			@Param("offset") int offset);
 	
+	public List<ArticleDTO> selectSearchBBS(
+			@Param("bbsId") int bbsId,
+			@Param("search") String search,
+			@Param("offset") int offset);
+	
 	public List<ArticleDTO> selectBBSForMain(
 			@Param("bbsId") int bbsId);
 	
@@ -46,6 +51,10 @@ public interface BBSDAO {
 			@Param("title") String title);
 	
 	public int selectCountArticleByBBSID(@Param("bbsId") int bbsId);
+	
+	public int selectCountArticleByBBSIDAndSearch(
+			@Param("bbsId") int bbsId,
+			@Param("search") String search);
 	
 	public int updateArticle(
 			@Param("id") int articleId,

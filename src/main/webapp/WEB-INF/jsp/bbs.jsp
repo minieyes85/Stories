@@ -38,17 +38,28 @@
 			</div>
 			
 			<div class="mb-2 d-flex justify-content-between">
-				<div class="bbsBtn border rounded text-white p-1"
-					onclick="location.href='#'">
-					<i class="bi bi-search"></i> 검색	
-				</div>
-				
+				<div>
+					<form class="d-flex">
+						<c:choose>
+							<c:when test="${isSearch eq false}">
+							<input id="searchInput" class="form-control form-control-sm me-1">
+							</c:when>
+							<c:when test="${isSearch eq true}">
+							<input id="searchInput" class="form-control form-control-sm me-1" value="${searchKeyWord}">
+							</c:when>
+						</c:choose>
+						<button id="searchBtn" type="submit" class="bbsBtn btn btn-sm text-white" data-bbs-id="${bbs.id}">
+							<i class="bi bi-search"></i> 검색
+						</button>
+					</form>
+				</div>				
 				
 				<c:choose>
 					<c:when test="${userName ne null}">
-						<div class="bbsBtn border rounded text-white p-1"
-							onclick="location.href='/article/createView?bbsId=${bbs.id}'">글쓰기 <i class="bi bi-pencil-square"></i>				
-						</div>
+						<button class="bbsBtn btn btn-sm text-white"
+							onclick="location.href='/article/createView?bbsId=${bbs.id}'">
+							글쓰기 <i class="bi bi-pencil-square"></i>
+						</button>
 					</c:when>
 					<c:when test="${userName eq null}">
 					
@@ -76,7 +87,7 @@
 									<i class="bi bi-card-image ms-1"></i>
 								</c:if>
 								<c:if test="${article.commentNo > 0}">
-									<span class="ms-1">${article.commentNo}</span>
+									<span class="ms-1 text-primary">${article.commentNo}</span>
 								</c:if>
 								
 							</td>
@@ -99,38 +110,75 @@
 				<table class="text-center">
 					<tr>
 						<c:choose>
-							<c:when test="${fwdPage ne null}">
-								<td class="pageListCell rounded"
-								onclick="location.href='/bbs?bbsId=${bbs.id}&page=${fwdPage}'"><i class="bi bi-skip-backward"></i></td>
-							</c:when>
-							<c:when test="${fwdPage eq null }">
-								<td class="pageListNone"></td>
-							</c:when>
-						</c:choose>
-						
-						<c:forEach var="pageNo" items="${pageNOs}">
+						<c:when test="${isSearch eq false}">
 							<c:choose>
-								<c:when test="${pageNo eq pageNO}">
-									<td class="pageListCell rounded fw-bold"
-									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
-								</c:when>
-								<c:when test="${pageNo ne pageNO}">
+								<c:when test="${fwdPage ne null}">
 									<td class="pageListCell rounded"
-									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
+									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${fwdPage}'"><i class="bi bi-skip-backward"></i></td>
+								</c:when>
+								<c:when test="${fwdPage eq null }">
+									<td class="pageListNone"></td>
 								</c:when>
 							</c:choose>
-						</c:forEach>
-						
-						<c:choose>
-							<c:when test="${awdPage ne null}">
-								<td class="pageListCell rounded"
-							onclick="location.href='/bbs?bbsId=${bbs.id}&page=${awdPage}'"><i class="bi bi-skip-forward"></i></td>
-							</c:when>
-							<c:when test="${awdPage eq null }">
-								<td class="pageListNone"></td>
-							</c:when>
+							
+							<c:forEach var="pageNo" items="${pageNOs}">
+								<c:choose>
+									<c:when test="${pageNo eq pageNO}">
+										<td class="pageListCell rounded fw-bold"
+										onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
+									</c:when>
+									<c:when test="${pageNo ne pageNO}">
+										<td class="pageListCell rounded"
+										onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}'">${pageNo}</td>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${awdPage ne null}">
+									<td class="pageListCell rounded"
+								onclick="location.href='/bbs?bbsId=${bbs.id}&page=${awdPage}'"><i class="bi bi-skip-forward"></i></td>
+								</c:when>
+								<c:when test="${awdPage eq null }">
+									<td class="pageListNone"></td>
+								</c:when>
+							</c:choose>
+						</c:when>
+						<c:when test="${isSearch eq true}">
+							<c:choose>
+								<c:when test="${fwdPage ne null}">
+									<td class="pageListCell rounded"
+									onclick="location.href='/bbs?bbsId=${bbs.id}&page=${fwdPage}'"><i class="bi bi-skip-backward"></i></td>
+								</c:when>
+								<c:when test="${fwdPage eq null }">
+									<td class="pageListNone"></td>
+								</c:when>
+							</c:choose>
+							
+							<c:forEach var="pageNo" items="${pageNOs}">
+								<c:choose>
+									<c:when test="${pageNo eq pageNO}">
+										<td class="pageListCell rounded fw-bold"
+										onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}&search=${searchKeyWord}'">${pageNo}</td>
+									</c:when>
+									<c:when test="${pageNo ne pageNO}">
+										<td class="pageListCell rounded"
+										onclick="location.href='/bbs?bbsId=${bbs.id}&page=${pageNo}&search=${searchKeyWord}'">${pageNo}</td>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${awdPage ne null}">
+									<td class="pageListCell rounded"
+								onclick="location.href='/bbs?bbsId=${bbs.id}&page=${awdPage}'"><i class="bi bi-skip-forward"></i></td>
+								</c:when>
+								<c:when test="${awdPage eq null }">
+									<td class="pageListNone"></td>
+								</c:when>
+							</c:choose>
+						</c:when>
 						</c:choose>
-						
 					</tr>
 				</table>
 			</div>

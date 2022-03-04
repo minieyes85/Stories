@@ -19,6 +19,10 @@
 	width: 15%;
 }
 
+#searchInput {
+	width: 50%;
+}
+
 .bbsBtn {
 	background-color: #2E4361;
 	cursor: pointer;

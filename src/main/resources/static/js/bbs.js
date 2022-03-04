@@ -207,9 +207,27 @@
 			}
 		})
 
-
 	});
 	
+	$("#searchBtn").on("click",function(e){
+		e.preventDefault();
+		
+		var input = $("#searchInput").val();
+		var bbsId = $(this).data("bbs-id");
+		
+		if(input == ""){
+			alert("검색어를 입력하세요.");
+			return;
+		}
+		
+		$.ajax({
+			type: "get",
+			success: function(){
+				location.href="/bbs?bbsId="+bbsId+"&search="+input;
+			}
+		});
+		
+	});
 	
 	
 	
