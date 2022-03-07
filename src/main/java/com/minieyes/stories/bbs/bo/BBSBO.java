@@ -116,7 +116,31 @@ public class BBSBO {
 		return bbsDAO.selectArticle(articleId);
 	}
 	
-	public int updateArticle(int articleId, int categoryId, String title, String content) {
+	public int updateArticle(int articleId, int categoryId, String title, String content, String tagsString) {
+		
+		// 태그 처리
+		
+		//태그 나누기
+		String[] tagStringArray = tagsString.split(",");
+		
+		//중복제거
+		LinkedHashSet<String> tags = new LinkedHashSet<>();
+		for(String tag:tagStringArray) {
+			String trimedTag = tag.trim();
+			tags.add(trimedTag);
+		}
+		
+		// 각 태그 db에 추가
+		for(String tag:tags) {
+			
+			// 태그가 있는지 검사
+			Tag targetTag = bbsDAO.selectExistTag(articleId, tag);
+			// 태그가 없으면 추가
+			if(targetTag == null) {
+				bbsDAO.insertTag(articleId, tag);				
+			}			
+		}		
+		
 		return bbsDAO.updateArticle(articleId, categoryId, title, content);
 	}
 	

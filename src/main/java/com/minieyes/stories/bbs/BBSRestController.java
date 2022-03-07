@@ -56,9 +56,10 @@ public class BBSRestController {
 			@RequestParam("categoryId") int categoryId,
 			@RequestParam("title") String title,
 			@RequestParam("content") String content,
+			@RequestParam(value = "tags", required = false) String tags,
 			HttpServletRequest req){
 		
-		int count = bbsBO.updateArticle(articleId, categoryId, title, content);
+		int count = bbsBO.updateArticle(articleId, categoryId, title, content, tags);
 
 		Map<String, String> result = new HashMap<>();
 

@@ -404,6 +404,20 @@
 	
 	</insert>
 	
+	<select id="selectExistTag"
+		parameterType="map"
+		resultType="com.minieyes.stories.bbs.model.Tag">
+		
+		SELECT
+			`id`
+		FROM
+			`tag`
+		WHERE
+			`articleId` = #{articleId}
+		AND `title` = #{title}
+	
+	</select>
+	
 	<select id="selectTagsByArticleId"
 		parameterType="int"
 		resultType="map">

@@ -96,6 +96,10 @@ public interface BBSDAO {
 	
 	public int selectRecommendByArticleId(@Param("articleId") int articleId);
 	
+	public Tag selectExistTag(
+			@Param("articleId") int articleId,
+			@Param("title") String tag);
+	
 	public int insertTag(
 			@Param("articleId") int articleId,
 			@Param("title") String tag);

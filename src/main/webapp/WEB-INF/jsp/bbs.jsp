@@ -26,6 +26,68 @@
 	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
 	<section class="d-flex justify-content-center">
+
+		<!-- Modal -->
+		<div class="modal fade" id="searchModal" tabindex="-1"
+			aria-labelledby="searchModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="d-flex mb-2">
+							<select id="searchSelect" class="form-select form-select-sm me-2">
+								<option value="1">제목</option>
+								<option value="2">글쓴이</option>
+								<option value="3">카테고리</option>
+							</select>
+							<div id="searchInput">
+								<!-- 제목 -->
+								<div id="searchTitle">
+									<c:choose>
+										<c:when test="${isSearch eq false}">
+											<input id="searchTitleInput"
+												class="form-control form-control-sm me-1">
+										</c:when>
+										<c:when test="${isSearch eq true}">
+											<input id="searchTitleInput"
+												class="form-control form-control-sm me-1"
+												value="${searchKeyWord}">
+										</c:when>
+									</c:choose>
+								</div>
+								<!-- 글쓴이 -->
+								<div id="searchUser" hidden="true">
+									<c:choose>
+										<c:when test="${isSearch eq false}">
+											<input id="searchUserInput"
+												class="form-control form-control-sm me-1">
+										</c:when>
+										<c:when test="${isSearch eq true}">
+											<input id="searchUserInput"
+												class="form-control form-control-sm me-1"
+												value="${searchKeyWord}">
+										</c:when>
+									</c:choose>
+								</div>
+								<!-- 카테고리 -->
+								<div id="searchCategory" hidden="true">
+									<select class="form-select form-select-sm me-2">
+										<c:forEach var="category" items="${categories}">
+											<option>${category.title}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-sm btn-primary">검색</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
 		<div id="mainForm" class="container bg-white">
 			<div id="bbsTitleBox" class="mt-3 mb-2">
 			${bbs.title}			
@@ -33,22 +95,16 @@
 			
 			<div class="mb-2">
 				<c:forEach var="category" items="${categories }">
-					${category.title }
+					<button class="btn btn-sm btn-light">${category.title }</button>
 				</c:forEach>
 			</div>
 			
 			<div class="mb-2 d-flex justify-content-between">
 				<div>
 					<form class="d-flex">
-						<c:choose>
-							<c:when test="${isSearch eq false}">
-							<input id="searchInput" class="form-control form-control-sm me-1">
-							</c:when>
-							<c:when test="${isSearch eq true}">
-							<input id="searchInput" class="form-control form-control-sm me-1" value="${searchKeyWord}">
-							</c:when>
-						</c:choose>
-						<button id="searchBtn" type="submit" class="bbsBtn btn btn-sm text-white" data-bbs-id="${bbs.id}">
+						
+						<button type="button" class="bbsBtn btn btn-sm text-white" data-bbs-id="${bbs.id}"
+							data-bs-toggle="modal" data-bs-target="#searchModal">
 							<i class="bi bi-search"></i> 검색
 						</button>
 					</form>

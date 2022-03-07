@@ -96,6 +96,16 @@
 		var userName = $(this).data("user-name");
 		var content = $("#inputCommentContent").val();
 		
+		if(content == "") {
+			alert("댓글을 입력하세요.");
+			return;
+		}
+		
+		if(content.length >= 256){
+			alert("댓글 글자수를 초과 하였습니다. (256자 제한)");
+			return;
+		}
+		
 		$.ajax({
 			type: "post",
 			url: "/comment/create",
@@ -149,10 +159,12 @@
 		}		
 	});
 	
+	
 	$(".commentUpdateBtn").on("click", function(){
 		var commentId = $(this).data("comment-id");
-		$("#commentContentBox"+commentId).attr("hidden", true);
+		$("#commentContentBox"+commentId).attr("hidden", true);		
 		$("#commentContentUpdateBox"+commentId).attr("hidden", false);
+		$("#commentContentChangeBox"+commentId).hide();
 	});
 	
 	$(".commentContentUpdateBtn").on("click", function(){
@@ -215,10 +227,12 @@
 		var input = $("#searchInput").val();
 		var bbsId = $(this).data("bbs-id");
 		
+		/*
 		if(input == ""){
 			alert("검색어를 입력하세요.");
 			return;
 		}
+		*/
 		
 		$.ajax({
 			type: "get",
@@ -226,6 +240,25 @@
 				location.href="/bbs?bbsId="+bbsId+"&search="+input;
 			}
 		});
+	});
+	
+	$("#searchSelect").on("change",function(){
+		
+		var searchType = $(this).val();
+		
+		if(searchType == 1){
+			$("#searchTitle").attr("hidden", false);
+			$("#searchUser").attr("hidden", true);
+			$("#searchCategory").attr("hidden", true);
+		} else if(searchType == 2){
+			$("#searchTitle").attr("hidden", true);
+			$("#searchUser").attr("hidden", false);
+			$("#searchCategory").attr("hidden", true);
+		} else if(searchType == 3){
+			$("#searchTitle").attr("hidden", true);
+			$("#searchUser").attr("hidden", true);
+			$("#searchCategory").attr("hidden", false);
+		}
 		
 	});
 	

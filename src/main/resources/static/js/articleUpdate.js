@@ -10,6 +10,7 @@ $(document).ready(function(){
 		var categoryId = $("#updateArticleCategory").val();
 		var title = $("#updateArticleTitle").val();
 		var content = $("#updateArticleContent").val();
+		var tags = $("#updateArticleTag").val();
 		
 		// 입력값 체크
 		
@@ -36,7 +37,8 @@ $(document).ready(function(){
 				"articleId": articleId,
 				"categoryId": categoryId,
 				"title": title,
-				"content": content
+				"content": content,
+				"tags": tags
 			},
 			success: function(data){
 				if(data.result == "success"){

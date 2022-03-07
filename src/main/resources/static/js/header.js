@@ -88,6 +88,16 @@ $(document).ready(function(){
 	$("#signUpId").on("change",function(){
 		$("#signUpBtn").attr("disabled", true);
 	});
+	
+	
+	// 이메일 주소 형식 체크 함수
+	function email_check(email) {
+
+		var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		return reg.test(email);
+
+	}
 		
 	
 	//회원가입
@@ -112,7 +122,12 @@ $(document).ready(function(){
 		if(signUpEmail == ""){
 			alert("이메일 주소를 입력 하세요.");
 			return;
-		};
+		} 
+		
+		if (!email_check(signUpEmail)) {
+			alert("이메일 형식에 맞게 입력 해 주세요.");
+			return;
+		}		
 		
 		if(signUpPassword == ""){
 			alert("비밀번호를 입력하세요");

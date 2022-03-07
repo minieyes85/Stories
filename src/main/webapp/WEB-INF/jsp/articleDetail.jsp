@@ -30,15 +30,13 @@
 			<div id="bbsTitleBox" class="mt-3 mb-2">
 			${bbs.title}			
 			</div>
-			
-			<div class="mb-2">
-				<c:forEach var="category" items="${categories }">
-					${category.title }
-				</c:forEach>
-			</div>
-			
+						
 			<div id="articleCategory" class="mb-2 d-flex justify-content-between">
-				category
+				<c:forEach var="category" items="${categories }">
+					<c:if test="${category.id eq article.categoryId }">
+						${category.title}
+					</c:if>
+				</c:forEach>
 			</div>
 			
 			<div id="articleTitle" class="mb-2 d-flex justify-content-between">
@@ -116,35 +114,38 @@
 			
 			<hr>
 			
-			<div class="mb-2">
+			<div class="mb-2 forComment">
 				<c:forEach var="comment" items="${comments }">
 					<div class="mb-1">
 						<div class="commentUserNameBox p-1 mb-1 d-flex justify-content-between">
 							<div>${comment.userName }</div>
 							<div class="commentTime d-flex align-items-center"><fmt:formatDate value="${comment.updatedAt}" pattern="yyyy-MM-dd HH:mm"/></div>
 						</div>
-						<div id="commentContentBox${comment.id}" class="mb-2">${comment.content }</div>
+						
+						<div id="commentContentBox${comment.id}" class="mb-2">
+						<div class="mb-2">${comment.content }</div>
+							<div class="d-flex justify-content-end">
+								<c:if test="${userName ne null}">
+									<div class="me-1">
+										<button class="btn btn-sm btn-light">댓글</button>
+									</div>
+								</c:if>
+								<c:if test="${comment.userId eq userId}">
+									<div class="me-1">
+										<button class="commentUpdateBtn btn btn-sm btn-secondary" data-comment-id="${comment.id}">수정</button>
+									</div>
+														
+									<div class="me-1">
+										<button class="commentDeleteBtn btn btn-sm btn-danger" data-comment-id="${comment.id}">삭제</button>
+									</div>
+								</c:if>
+							</div>
+						</div>
 						<div id="commentContentUpdateBox${comment.id}" class="mb-2 me-1" hidden="true">
 							<input id="commentContentUpdateInput${comment.id}" type="text" class="form-control form-control-sm mb-1" value="${comment.content }">
 							<div class="d-flex justify-content-end">
 								<button class="commentContentUpdateBtn btn btn-sm btn-primary" data-comment-id="${comment.id}">확인</button>
 							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-2">
-							<c:if test="${userName ne null}">
-								<div class="me-1">
-									<button class="btn btn-sm btn-light">댓글</button>
-								</div>
-							</c:if>
-							<c:if test="${comment.userId eq userId}">
-								<div class="me-1">
-									<button class="commentUpdateBtn btn btn-sm btn-secondary" data-comment-id="${comment.id}">수정</button>
-								</div>
-													
-								<div class="me-1">
-									<button class="commentDeleteBtn btn btn-sm btn-danger" data-comment-id="${comment.id}">삭제</button>
-								</div>
-							</c:if>
 						</div>
 					</div>
 				</c:forEach>

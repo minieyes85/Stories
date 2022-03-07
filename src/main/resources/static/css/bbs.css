@@ -19,8 +19,12 @@
 	width: 15%;
 }
 
+#searchSelect {
+	width: 45%;
+}
+
 #searchInput {
-	width: 50%;
+	width: 60%;
 }
 
 .bbsBtn {
