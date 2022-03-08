@@ -33,6 +33,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
+						<form>
 						<div class="d-flex mb-2">
 							<select id="searchSelect" class="form-select form-select-sm me-2">
 								<option value="1">제목</option>
@@ -70,17 +71,18 @@
 								</div>
 								<!-- 카테고리 -->
 								<div id="searchCategory" hidden="true">
-									<select class="form-select form-select-sm me-2">
+									<select id="searchCategory" class="form-select form-select-sm me-2">
 										<c:forEach var="category" items="${categories}">
-											<option>${category.title}</option>
+											<option value="${category.id}">${category.title}</option>
 										</c:forEach>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-end">
-							<button class="btn btn-sm btn-primary">검색</button>
+							<button type="submit" id="searchBtn" class="btn btn-sm btn-primary" data-bbs-id="${bbs.id}">검색</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

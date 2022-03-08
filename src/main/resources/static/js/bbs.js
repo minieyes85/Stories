@@ -224,20 +224,30 @@
 	$("#searchBtn").on("click",function(e){
 		e.preventDefault();
 		
-		var input = $("#searchInput").val();
 		var bbsId = $(this).data("bbs-id");
+		var searchType = $("#searchSelect").val();
 		
-		/*
-		if(input == ""){
-			alert("검색어를 입력하세요.");
-			return;
+		
+		if(searchType == 1){
+			//제목 검색
+			var searchInput = $("#searchTitleInput").val();
+			
+		} else if(searchType == 2){
+			//글쓴이 검색
+			var searchInput = $("#searchUserInput").val();
+			
+		} else if(searchType == 3){
+			//카테고리 검색
+			var searchInput = $("#searchCategory").val();
 		}
-		*/
 		
+		var targetUrl = "/bbs?bbsId="+bbsId+"&searchType="+searchType+"&searchInput="+searchInput;
+		
+				
 		$.ajax({
 			type: "get",
 			success: function(){
-				location.href="/bbs?bbsId="+bbsId+"&search="+input;
+				location.href=targetUrl;
 			}
 		});
 	});
