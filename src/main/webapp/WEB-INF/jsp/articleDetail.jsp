@@ -28,7 +28,7 @@
 	<section class="d-flex justify-content-center">
 		<div id="mainForm" class="container bg-white">
 			<div id="bbsTitleBox" class="mt-3 mb-2">
-			${bbs.title}			
+				<a href="/bbs?bbsId=${bbs.id}" class="text-decoration-none">${bbs.title}</a>			
 			</div>
 						
 			<div id="articleCategory" class="mb-2 d-flex justify-content-between">
@@ -50,21 +50,27 @@
 						<fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd HH:mm"/>
 					</span>
 				</div>
-				
-				<div class="me-2">
-					<c:if test="${userId eq article.userId}">
-					<div class="dropdown">
-						<a class="dropdown-toggle" href="#"
-							role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-							aria-expanded="false"></a>
+				<c:if test="${userId ne null }">
+					<div class="me-2">
+						<div class="dropdown">
+							<a class="dropdown-toggle" href="#" role="button"
+								id="dropdownMenuLink" data-bs-toggle="dropdown"
+								aria-expanded="false"></a>
 
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li><a class="dropdown-item" href="/article/updateView?articleId=${article.id}">수정</a></li>
-							<li><a class="dropdown-item" href="#" id="deleteArticleBtn" data-article-id="${article.id}" data-bbs-id="${bbs.id}">삭제</a></li>
-						</ul>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="/article/updateView?articleId=${article.id}">답글작성</a></li>
+								<c:if test="${userId eq article.userId}">
+									<li><a class="dropdown-item"
+										href="/article/updateView?articleId=${article.id}">수정</a></li>
+									<li><a class="dropdown-item" href="#"
+										id="deleteArticleBtn" data-article-id="${article.id}"
+										data-bbs-id="${bbs.id}">삭제</a></li>
+								</c:if>
+							</ul>
+						</div>
 					</div>
-					</c:if>
-				</div>
+				</c:if>
 			</div>
 			<c:if test="${article.imagePath ne null }">
 				<div class="ms-2 me-2 mb-5 d-flex justify-content-center">
@@ -154,7 +160,7 @@
 								<div class="d-flex justify-content-end me-1">
 									<button class="btn btn-sm btn-primary me-1 reCommentCreateBtn" data-count="${status.count}" data-grp-id="${comment.grpId}"
 									data-article-id="${article.id}" data-depth="${comment.depth}" data-user-id="${userId}" data-user-name="${userName}">등록</button>
-									<button class="btn btn-sm btn-light">취소</button>
+									<button class="btn btn-sm btn-light reCommentCloseBtn" data-comment-id="${comment.id}">취소</button>
 								</div>
 							</div>
 						</div>

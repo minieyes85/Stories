@@ -276,6 +276,11 @@
 		$("#reCommentBox"+targetCommentId).attr("hidden", false);	
 	});
 	
+	$(".reCommentCloseBtn").on("click", function(){
+		var targetCommentId = $(this).data("comment-id");
+		$("#reCommentBox"+targetCommentId).attr("hidden", true);	
+	});
+	
 	$(".reCommentCreateBtn").on("click", function(){
 		
 		var count = $(this).data("count");
