@@ -69,7 +69,7 @@
 	
 	</select>
 	
-	<select id="selectSearchBBS"
+	<select id="selectBBSByTitle"
 		parameterType="map"
 		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
 		
@@ -85,7 +85,51 @@
 			JOIN `bbs` ON article.bbsId = bbs.id
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
-			AND article.title LIKE CONCAT("%", #{search}, "%") 
+			AND article.title LIKE CONCAT("%", #{title}, "%") 
+			ORDER BY articleId DESC
+			LIMIT 20 OFFSET #{offset}
+	
+	</select>
+	
+	<select id="selectBBSByUserName"
+		parameterType="map"
+		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
+		
+			SELECT
+				article.id AS articleId
+				, category.title AS categoryName
+			    , article.title AS title
+			    , article.userName AS userName
+			    , article.imagePath as imagePath
+			    , article.createdAt AS createdAt
+			FROM
+				`article`
+			JOIN `bbs` ON article.bbsId = bbs.id
+			JOIN `category` ON article.categoryId = category.id
+			WHERE bbs.id = #{bbsId}
+			AND article.userName LIKE CONCAT("%", #{userName}, "%") 
+			ORDER BY articleId DESC
+			LIMIT 20 OFFSET #{offset}
+	
+	</select>
+	
+	<select id="selectBBSByCategory"
+		parameterType="map"
+		resultType="com.minieyes.stories.bbs.model.ArticleDTO">
+		
+			SELECT
+				article.id AS articleId
+				, category.title AS categoryName
+			    , article.title AS title
+			    , article.userName AS userName
+			    , article.imagePath as imagePath
+			    , article.createdAt AS createdAt
+			FROM
+				`article`
+			JOIN `bbs` ON article.bbsId = bbs.id
+			JOIN `category` ON article.categoryId = category.id
+			WHERE bbs.id = #{bbsId}
+			AND article.categoryId = #{categoryId} 
 			ORDER BY articleId DESC
 			LIMIT 20 OFFSET #{offset}
 	
@@ -149,7 +193,7 @@
 			
 	</select>
 	
-	<select id="selectCountArticleByBBSIDAndSearch"
+	<select id="selectCountArticleByBBSIDAndTitle"
 		parameterType="map"
 		resultType="int">
 		
@@ -159,7 +203,35 @@
 			`article`
 		WHERE
 			`bbsId` = #{bbsId}
-		AND article.title LIKE CONCAT("%", #{search}, "%")
+		AND article.title LIKE CONCAT("%", #{title}, "%")
+			
+	</select>
+	
+	<select id="selectCountArticleByBBSIDAndUserName"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`article`
+		WHERE
+			`bbsId` = #{bbsId}
+		AND article.userName LIKE CONCAT("%", #{userName}, "%")
+			
+	</select>
+	
+	<select id="selectCountArticleByBBSIDAndCategory"
+		parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*) AS count
+		FROM
+			`article`
+		WHERE
+			`bbsId` = #{bbsId}
+		AND article.categoryId = #{categoryId}
 			
 	</select>
 	

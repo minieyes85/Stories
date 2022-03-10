@@ -1,6 +1,5 @@
 package com.minieyes.stories.bbs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.bbs.model.Category;
 import com.minieyes.stories.bbs.model.Comment;
 import com.minieyes.stories.bbs.model.Tag;
+import com.minieyes.stories.common.PageManager;
 
 @Controller
 public class BBSController {
@@ -29,8 +29,9 @@ public class BBSController {
 	@GetMapping("/bbs")
 	public String bbsView(
 			@RequestParam(value="bbsId", required=false) int bbsId,
-			@RequestParam(value="page", required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(value="search", required=false, defaultValue="") String search,
+			@RequestParam(value="searchType", required=false) Integer searchType,
+			@RequestParam(value="searchInput", required=false, defaultValue="") String searchInput,
+			@RequestParam(value="page", required=false, defaultValue="1") Integer currentPage,
 			Model model) {
 		
 		// header 게시판 표시
@@ -43,135 +44,38 @@ public class BBSController {
 		List<Category> categories = bbsBO.getCategories(bbsId);
 		model.addAttribute("categories", categories);
 		
-		//검색 없을때
-		if(search.equals("")) {		
 			
-			// 페이지표시
-			// 페이지수 없을떄
-			if(pageNo == null) {
-				pageNo = 1;			
-			}
-			
-			List<Integer> pageNOs = new ArrayList<>();
-	
-			// 총 페이지
-			int lastPageNo = bbsBO.getLastPageNo(bbsId);
-			
-			// 총 페이지 < 10
-			if(lastPageNo < 10) {
-				for(int i = 1; i <= lastPageNo; i++ ) {
-					pageNOs.add(i);
-				}
-				model.addAttribute("fwdPage", null);
-				model.addAttribute("awdPage", null);
-			// 총 페이지 >= 10
-			} else {
-				
-				// 페이지 초반 <= 5
-				if(pageNo <= 5) {
-					for(int i = 1 ; i < 10 ; i++) {
-						pageNOs.add(i);						
-					}
-					model.addAttribute("fwdPage", null);
-					model.addAttribute("awdPage", 10);
-					
-				// 페이지 중반
-				} else if((pageNo > 5) && (pageNo <= lastPageNo - 5)) {
-					for(int i = pageNo-4 ; i < pageNo+5 ; i++) {
-						pageNOs.add(i);
-					}
-					int fwdPage = pageNo - 5;
-					model.addAttribute("fwdPage", fwdPage);
-					int awdPage = pageNo + 5;
-					model.addAttribute("awdPage", awdPage);
-					
-				// 페이지 후반 >= lastPageNo - 5
-		 		} else {
-		 			for(int i = lastPageNo-8 ; i <= lastPageNo ; i++) {
-		 				pageNOs.add(i);
-		 			}
-		 			int fwdPage = lastPageNo-9;
-		 			model.addAttribute("fwdPage", fwdPage);
-		 			model.addAttribute("awdPage", null);	 			
-		 		}
-			}		
-			
-			model.addAttribute("pageNOs", pageNOs);
-			model.addAttribute("pageNO", pageNo);
-			
-			// 게시판 게시글 표시
-			List<ArticleDTO> articles = bbsBO.showBBS(bbsId, pageNo);
-			model.addAttribute("articles", articles);
-			
-			model.addAttribute("isSearch", false);
-			
-			return "bbs";
-			
-		} else {
-			//검색 있을때
-			
-			// 페이지표시
-			// 페이지수 없을떄
-			if(pageNo == null) {
-				pageNo = 1;			
-			}
-			
-			List<Integer> pageNOs = new ArrayList<>();
-			
-			// 총 페이지
-			int lastPageNo = bbsBO.getLastPageNoOnSearch(bbsId, search);
-						
-			// 총 페이지 < 10
-			if(lastPageNo < 10) {
-				for(int i = 1; i <= lastPageNo; i++ ) {
-					pageNOs.add(i);
-				}
-				model.addAttribute("fwdPage", null);
-				model.addAttribute("awdPage", null);
-			// 총 페이지 >= 10
-			} else {
-				
-				// 페이지 초반 <= 5
-				if(pageNo <= 5) {
-					for(int i = 1 ; i < 10 ; i++) {
-						pageNOs.add(i);						
-					}
-					model.addAttribute("fwdPage", null);
-					model.addAttribute("awdPage", 10);
-					
-				// 페이지 중반
-				} else if((pageNo > 5) && (pageNo <= lastPageNo - 5)) {
-					for(int i = pageNo-4 ; i < pageNo+5 ; i++) {
-						pageNOs.add(i);
-					}
-					int fwdPage = pageNo - 5;
-					model.addAttribute("fwdPage", fwdPage);
-					int awdPage = pageNo + 5;
-					model.addAttribute("awdPage", awdPage);
-					
-				// 페이지 후반 >= lastPageNo - 5
-					} else {
-						for(int i = lastPageNo-8 ; i <= lastPageNo ; i++) {
-							pageNOs.add(i);
-						}
-						int fwdPage = lastPageNo-9;
-						model.addAttribute("fwdPage", fwdPage);
-						model.addAttribute("awdPage", null);	 			
-			 		}
-				}
-						
-			model.addAttribute("pageNOs", pageNOs);
-			model.addAttribute("pageNO", pageNo);
-			
-			// 게시판 게시글 표시
-			List<ArticleDTO> articles = bbsBO.searchBBS(bbsId, pageNo, search);
-			model.addAttribute("articles", articles);
-			
-			model.addAttribute("isSearch", true);
-			model.addAttribute("searchKeyWord", search);
-			
-			return "bbs";
+		// 페이지수 없을떄
+		if (currentPage == null) {
+			currentPage = 1;
 		}
+
+		// 총 페이지
+		int lastPageNo = bbsBO.getLastPageNo(bbsId, searchType, searchInput);
+
+		// 페이지표시
+		List<Integer> allPages = PageManager.getPageList(lastPageNo, currentPage);
+		model.addAttribute("allPages", allPages);
+		model.addAttribute("fwdPage", PageManager.getBoudnaryPages(lastPageNo, currentPage).get("fwdPage"));
+		model.addAttribute("aftPage", PageManager.getBoudnaryPages(lastPageNo, currentPage).get("aftPage"));
+
+		// 현재 페이지
+		model.addAttribute("pageNO", currentPage);
+
+		// 게시판 게시글 표시
+		List<ArticleDTO> articles = bbsBO.showBBS(bbsId, searchType, searchInput, currentPage);
+		model.addAttribute("articles", articles);
+		
+		// 검색 결과 전달
+		if(searchType == null) {
+			model.addAttribute("isSearch", false);	
+		} else {
+			model.addAttribute("isSearch", true);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchInput", searchInput);			
+		}
+		
+		return "bbs";
 	}
 	
 	@GetMapping("/article/createView")

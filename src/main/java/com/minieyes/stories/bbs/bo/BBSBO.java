@@ -1,5 +1,6 @@
 package com.minieyes.stories.bbs.bo;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -34,29 +35,24 @@ public class BBSBO {
 		return bbsDAO.selectCategoriesByBBS(bbsId);
 	}
 	
-	public List<ArticleDTO> showBBS(int bbsId, int pageNo){
+	public List<ArticleDTO> showBBS(int bbsId, Integer searchType, String searchInput, int currentPage){
 		
-		//댓글 추천 갯수 포함
-		List<ArticleDTO> bbsDTOs = bbsDAO.selectBBS(bbsId, (pageNo-1)*20);
+		int offset = (currentPage-1)*20;
+		List<ArticleDTO> bbsDTOs = new ArrayList<>();
 		
-		for(ArticleDTO bbsDTO : bbsDTOs) {
-			int articleId = bbsDTO.getArticleId();
-			int countComment = bbsDAO.selectCommentCountByArticleId(articleId);
-			int countRecommend = bbsDAO.selectRecommendByArticleId(articleId);
-			bbsDTO.setCommentNo(countComment);
-			bbsDTO.setRecommendNo(countRecommend);
+		//대상 글 조회
+		
+		if(searchType == null) {
+			bbsDTOs = bbsDAO.selectBBS(bbsId, offset);			
+		} else if(searchType == 1) {
+			bbsDTOs = bbsDAO.selectBBSByTitle(bbsId, searchInput, offset);			
+		} else if(searchType == 2) {
+			bbsDTOs = bbsDAO.selectBBSByUserName(bbsId, searchInput, offset);
+		} else if(searchType == 3) {
+			bbsDTOs = bbsDAO.selectBBSByCategory(bbsId, searchInput, offset);			
 		}
-				
-		return bbsDTOs;
-	}
-	
-	public List<ArticleDTO> searchBBS(int bbsId, int pageNo, String search){
-		
-		int offset = (pageNo-1)*20;
 		
 		//댓글 추천 갯수 포함
-		List<ArticleDTO> bbsDTOs = bbsDAO.selectSearchBBS(bbsId, search, offset);
-		
 		for(ArticleDTO bbsDTO : bbsDTOs) {
 			int articleId = bbsDTO.getArticleId();
 			int countComment = bbsDAO.selectCommentCountByArticleId(articleId);
@@ -202,10 +198,20 @@ public class BBSBO {
 		}		
 	}
 	
-	public int getLastPageNo(int bbsId) {
+	public int getLastPageNo(int bbsId, Integer searchType, String searchInput) {
 		
-		int articleCount = bbsDAO.selectCountArticleByBBSID(bbsId);
 		int pageNo = 0;
+		int articleCount = 0;
+
+		if(searchType == null) {
+			articleCount = bbsDAO.selectCountArticleByBBSID(bbsId);				
+		} else if(searchType == 1) {
+			articleCount = bbsDAO.selectCountArticleByBBSIDAndTitle(bbsId, searchInput);			
+		} else if(searchType == 2) {
+			articleCount = bbsDAO.selectCountArticleByBBSIDAndUserName(bbsId, searchInput);
+		} else if(searchType == 3) {
+			articleCount = bbsDAO.selectCountArticleByBBSIDAndCategory(bbsId, searchInput);
+		}
 		
 		if(articleCount%20 > 0) {
 			pageNo = articleCount / 20 + 1;
@@ -215,23 +221,7 @@ public class BBSBO {
 		
 		return pageNo;		
 	}
-	
-	public int getLastPageNoOnSearch(int bbsId, String search) {
-		
-		int articleCount = bbsDAO.selectCountArticleByBBSIDAndSearch(bbsId, search);
-		int pageNo = 0;
-		
-		if(articleCount%20 > 0) {
-			pageNo = articleCount / 20 + 1;
-		} else {
-			pageNo = articleCount / 20;
-		}
-		
-		return pageNo;		
-	}
-	
-	
-		
+			
 	public List<ArticleDTO> getMainBBS(int bbsId){
 		List<ArticleDTO> articles = bbsDAO.selectBBSForMain(bbsId);
 		for(ArticleDTO article:articles) {

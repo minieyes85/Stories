@@ -25,9 +25,19 @@ public interface BBSDAO {
 			@Param("bbsId") int bbsId,
 			@Param("offset") int offset);
 	
-	public List<ArticleDTO> selectSearchBBS(
+	public List<ArticleDTO> selectBBSByTitle(
 			@Param("bbsId") int bbsId,
-			@Param("search") String search,
+			@Param("title") String search,
+			@Param("offset") int offset);
+	
+	public List<ArticleDTO> selectBBSByUserName(
+			@Param("bbsId") int bbsId,
+			@Param("userName") String search,
+			@Param("offset") int offset);
+	
+	public List<ArticleDTO> selectBBSByCategory(
+			@Param("bbsId") int bbsId,
+			@Param("categoryId") String search,
 			@Param("offset") int offset);
 	
 	public List<ArticleDTO> selectBBSForMain(
@@ -52,9 +62,17 @@ public interface BBSDAO {
 	
 	public int selectCountArticleByBBSID(@Param("bbsId") int bbsId);
 	
-	public int selectCountArticleByBBSIDAndSearch(
+	public int selectCountArticleByBBSIDAndTitle(
 			@Param("bbsId") int bbsId,
-			@Param("search") String search);
+			@Param("title") String title);
+	
+	public int selectCountArticleByBBSIDAndUserName(
+			@Param("bbsId") int bbsId,
+			@Param("userName") String UserName);
+	
+	public int selectCountArticleByBBSIDAndCategory(
+			@Param("bbsId") int bbsId,
+			@Param("categoryId") String category);
 	
 	public int updateArticle(
 			@Param("id") int articleId,
