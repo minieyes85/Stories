@@ -156,7 +156,22 @@ public class BBSBO {
 	}
 	
 	public int createNewComment(int articleId, int userId, String userName, String content) {
-		return bbsDAO.insertNewComment(articleId, userId, userName, content);
+		
+		int check = bbsDAO.insertNewComment(articleId, userId, userName, content);
+		
+		int newCommentId = bbsDAO.selectLastCommentId();
+		
+		check = check + bbsDAO.updateNewCommentGrpId(newCommentId);
+		
+		if(check == 2) {
+			return 1;
+		} else {
+			return 0;
+		}		
+	}
+	
+	public int createReComment(int articleId, int userId, String userName, int grpId, int depth, String content ) {
+		return bbsDAO.insertReComment(articleId, userId, userName, grpId, depth, content);
 	}
 	
 	public List<Comment> getComments(int articleId){

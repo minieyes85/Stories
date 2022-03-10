@@ -88,6 +88,18 @@ public interface BBSDAO {
 			@Param("userName") String userName,
 			@Param("content") String content);
 	
+	public int insertReComment(
+			@Param("articleId") int articleId,
+			@Param("userId") int userId,
+			@Param("userName") String userName,
+			@Param("grpId") int grpId,
+			@Param("depth") int depth,
+			@Param("content") String content);
+	
+	public int selectLastCommentId();
+	
+	public int updateNewCommentGrpId(@Param("newCommentId") int newCommentId);
+	
 	public List<Comment> selectCommentByArticleId(@Param("articleId") int articleId);
 	
 	public int selectCommentCountByArticleId(@Param("articleId") int articleId);

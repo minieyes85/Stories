@@ -109,6 +109,29 @@ public class BBSRestController {
 		return result;
 	}
 	
+	@PostMapping("/reComment/create")
+	public Map<String, String> createReComment(
+			@RequestParam("articleId") int articleId,
+			@RequestParam("userId") int userId,
+			@RequestParam("userName") String userName,
+			@RequestParam("grpId") int grpId,
+			@RequestParam("depth") int depth,
+			@RequestParam("content") String content){
+		
+		int count = bbsBO.createReComment(articleId, userId, userName,grpId, depth, content);		
+		
+		Map<String, String> result = new HashMap<>();
+
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+
+		return result;
+
+	};
+	
 	@PostMapping("/comment/delete")
 	public Map<String, String> deleteComment(@RequestParam("commentId") int commentId){
 		

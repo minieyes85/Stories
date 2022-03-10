@@ -115,19 +115,26 @@
 			<hr>
 			
 			<div class="mb-2 forComment">
-				<c:forEach var="comment" items="${comments }">
+				<c:forEach var="comment" items="${comments }" varStatus="status">
+					<c:if test="${comment.depth eq 1}">
 					<div class="mb-1">
+					</c:if>
+					
+					<c:if test="${comment.depth > 1}">
+					<div class="mb-1 ms-5">
+					</c:if>
+					
 						<div class="commentUserNameBox p-1 mb-1 d-flex justify-content-between">
 							<div>${comment.userName }</div>
 							<div class="commentTime d-flex align-items-center"><fmt:formatDate value="${comment.updatedAt}" pattern="yyyy-MM-dd HH:mm"/></div>
 						</div>
 						
 						<div id="commentContentBox${comment.id}" class="mb-2">
-						<div class="mb-2">${comment.content }</div>
-							<div class="d-flex justify-content-end">
+							<div class="mb-2">${comment.content }</div>
+							<div class="d-flex justify-content-end mb-1">
 								<c:if test="${userName ne null}">
 									<div class="me-1">
-										<button class="btn btn-sm btn-light">댓글</button>
+										<button class="btn btn-sm btn-light reCommentOpenBtn" data-comment-id="${comment.id}">댓글</button>
 									</div>
 								</c:if>
 								<c:if test="${comment.userId eq userId}">
@@ -139,6 +146,16 @@
 										<button class="commentDeleteBtn btn btn-sm btn-danger" data-comment-id="${comment.id}">삭제</button>
 									</div>
 								</c:if>
+							</div>
+							<div id="reCommentBox${comment.id}" hidden="true">
+								<div class="d-flex justify-content-end mb-1 me-1 ms-5">
+									<input id="reCommentInput${status.count}" type="text" class="form-control form-control-sm">
+								</div>
+								<div class="d-flex justify-content-end me-1">
+									<button class="btn btn-sm btn-primary me-1 reCommentCreateBtn" data-count="${status.count}" data-grp-id="${comment.grpId}"
+									data-article-id="${article.id}" data-depth="${comment.depth}" data-user-id="${userId}" data-user-name="${userName}">등록</button>
+									<button class="btn btn-sm btn-light">취소</button>
+								</div>
 							</div>
 						</div>
 						<div id="commentContentUpdateBox${comment.id}" class="mb-2 me-1" hidden="true">

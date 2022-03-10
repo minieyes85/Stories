@@ -271,6 +271,49 @@
 		
 	});
 	
+	$(".reCommentOpenBtn").on("click", function(){
+		var targetCommentId = $(this).data("comment-id");
+		$("#reCommentBox"+targetCommentId).attr("hidden", false);	
+	});
+	
+	$(".reCommentCreateBtn").on("click", function(){
+		
+		var count = $(this).data("count");
+		var userId = $(this).data("user-id");
+		var userName = $(this).data("user-name");
+		var articleId = $(this).data("article-id");
+		var grpId = $(this).data("grp-id");
+		var depth = $(this).data("depth");
+		var content = $("#reCommentInput"+count).val();
+				
+		$.ajax({
+			type: "post",
+			url: "/reComment/create",
+			data: {
+				"userId": userId,
+				"userName": userName,
+				"articleId": articleId,
+				"grpId": grpId,
+				"depth": depth+1,
+				"content": content
+			},
+			success: function(data){
+				if(data.result == "success"){
+					alert("대댓글이 성공적으로 등록 되었습니다.");
+					location.reload();
+				} else {
+					alert("대댓글 작성에 실패했습니다.");
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+			
+		});
+		
+	});
+	
+	
 	
 	
 });

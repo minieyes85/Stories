@@ -341,6 +341,44 @@
 	
 	</insert>
 	
+	<insert id="insertReComment"
+		parameterType="map">
+		
+		INSERT INTO `comment`
+			( `articleId`
+			, `userId`
+			, `userName`
+			, `grpId`
+			, `depth`
+			, `content`
+			, `createdAt`
+			, `updatedAt`)
+		VALUE
+			( #{articleId}
+			, #{userId}
+			, #{userName}
+			, #{grpId}
+			, #{depth}
+			, #{content}
+			, now()
+			, now())
+	
+	</insert>
+	
+	<select id="selectLastCommentId"
+		resultType="int">
+	
+		SELECT
+			`id`
+		FROM
+			`comment`
+		ORDER BY
+			`id`
+		DESC
+		LIMIT 1
+	
+	</select>
+	
 	<select id="selectCommentByArticleId"
 		parameterType="int"
 		resultType="com.minieyes.stories.bbs.model.Comment">
@@ -360,7 +398,7 @@
 		WHERE
 			`articleId` = #{articleId}
 		ORDER BY
-			`id`
+			`grpId`,`depth`
 	
 	</select>
 	
@@ -407,6 +445,16 @@
 		WHERE
 			`id` = #{id}
 			
+	</update>
+	
+	<update id="updateNewCommentGrpId"
+		parameterType="int">
+		
+		UPDATE `comment`
+		SET `grpId` = #{newCommentId}
+		WHERE
+			`id` = #{newCommentId}
+		
 	</update>
 	
 	<select id="selectRecommend"
