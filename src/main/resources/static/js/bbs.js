@@ -240,9 +240,8 @@
 			//카테고리 검색
 			var searchInput = $("#searchCategory option:selected").val();
 		}
-		
+				
 		var targetUrl = "/bbs?bbsId="+bbsId+"&searchType="+searchType+"&searchInput="+searchInput;
-		
 				
 		$.ajax({
 			type: "get",

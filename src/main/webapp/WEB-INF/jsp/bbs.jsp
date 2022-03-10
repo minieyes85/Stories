@@ -94,13 +94,7 @@
 			<div id="bbsTitleBox" class="mt-3 mb-2">
 			${bbs.title}			
 			</div>
-			
-			<div class="mb-2">
-				<c:forEach var="category" items="${categories }">
-					<button class="btn btn-sm btn-light">${category.title }</button>
-				</c:forEach>
-			</div>
-			
+						
 			<div class="mb-2 d-flex justify-content-between">
 				<div>
 					<form class="d-flex">
@@ -125,8 +119,8 @@
 				</c:choose>
 			</div>
 			
-			<div>
-				<table class="table table-sm">
+			<div id="articleBox">
+				<table id="articleTable" class="table table-sm">
 					<thead class="text-center fw-bold">
 						<tr>
 							<td id="theadTitle">제목</td>

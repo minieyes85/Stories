@@ -27,6 +27,14 @@
 	width: 60%;
 }
 
+#articleBox {
+	min-height: 700px;
+}
+
+#articleTable>tbody>tr:hover{
+	background-color: #FAFAFA;
+}
+
 .bbsBtn {
 	background-color: #2E4361;
 	cursor: pointer;
