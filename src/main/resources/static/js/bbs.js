@@ -238,7 +238,7 @@
 			
 		} else if(searchType == 3){
 			//카테고리 검색
-			var searchInput = $("#searchCategory").val();
+			var searchInput = $("#searchCategory option:selected").val();
 		}
 		
 		var targetUrl = "/bbs?bbsId="+bbsId+"&searchType="+searchType+"&searchInput="+searchInput;
