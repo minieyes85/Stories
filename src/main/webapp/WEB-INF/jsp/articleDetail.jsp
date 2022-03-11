@@ -59,7 +59,7 @@
 
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item"
-									href="/article/updateView?articleId=${article.id}">답글작성</a></li>
+									href="/article/replyView?articleId=${article.id}">답글작성</a></li>
 								<c:if test="${userId eq article.userId}">
 									<li><a class="dropdown-item"
 										href="/article/updateView?articleId=${article.id}">수정</a></li>

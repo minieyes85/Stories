@@ -51,9 +51,22 @@ public interface BBSDAO {
 			@Param("title") String title,
 			@Param("content") String content,
 			@Param("imagePath") String imagePath);
+	
+	public int insertReply(
+			@Param("userId") int userId,
+			@Param("userName") String userName,
+			@Param("bbsId") int bbsId,
+			@Param("categoryId") int categoryId,
+			@Param("grpId") int grpId,
+			@Param("depth") int depth,
+			@Param("title") String title,
+			@Param("content") String content,
+			@Param("imagePath") String imagePath);
 		
 	public Article selectArticle(
 			@Param("id") int articleId);
+	
+	public int selectLastArticleId();
 	
 	public int selectArticleIdAtMoment(
 			@Param("userId") int userId,
@@ -79,6 +92,8 @@ public interface BBSDAO {
 			@Param("categoryId") int categoryId,
 			@Param("title") String title,
 			@Param("content") String content);
+	
+	public int updateNewArticleGrpId(@Param("newArticleId") int newArticleId);
 	
 	public int deleteArticle(@Param("id") int articleId);
 	

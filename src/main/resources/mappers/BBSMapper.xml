@@ -64,7 +64,7 @@
 			JOIN `bbs` ON article.bbsId = bbs.id
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
-			ORDER BY articleId DESC
+			ORDER BY article.grpId DESC, article.depth 
 			LIMIT 20 OFFSET #{offset}
 	
 	</select>
@@ -86,7 +86,7 @@
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
 			AND article.title LIKE CONCAT("%", #{title}, "%") 
-			ORDER BY articleId DESC
+			ORDER BY article.grpId DESC, article.depth 
 			LIMIT 20 OFFSET #{offset}
 	
 	</select>
@@ -108,7 +108,7 @@
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
 			AND article.userName LIKE CONCAT("%", #{userName}, "%") 
-			ORDER BY articleId DESC
+			ORDER BY article.grpId DESC, article.depth 
 			LIMIT 20 OFFSET #{offset}
 	
 	</select>
@@ -130,7 +130,7 @@
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
 			AND article.categoryId = #{categoryId} 
-			ORDER BY articleId DESC
+			ORDER BY article.grpId DESC, article.depth 
 			LIMIT 20 OFFSET #{offset}
 	
 	</select>
@@ -151,7 +151,7 @@
 			JOIN `bbs` ON article.bbsId = bbs.id
 			JOIN `category` ON article.categoryId = category.id
 			WHERE bbs.id = #{bbsId}
-			ORDER BY articleId DESC
+			ORDER BY article.grpId DESC, article.depth 
 			LIMIT 12
 	
 	</select>
@@ -177,6 +177,20 @@
 			`article`
 		WHERE
 			`id` = #{id}
+	
+	</select>
+	
+	<select id="selectLastArticleId"
+		resultType="int">
+	
+		SELECT
+			`id`
+		FROM
+			`article`
+		ORDER BY
+			`id`
+		DESC
+		LIMIT 1
 	
 	</select>
 	
@@ -293,6 +307,36 @@
 	
 	</insert>
 	
+	<insert id="insertReply"
+		parameterType="map">
+		
+		INSERT INTO `article`
+			( `userId`
+			, `userName`
+			, `bbsId`
+			, `categoryId`
+			, `grpId`
+			, `depth`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`)
+			VALUE
+			( #{userId}
+			, #{userName}
+			, #{bbsId}
+			, #{categoryId}
+			, #{grpId}
+			, #{depth}
+			, #{title}
+			, #{content}
+			, #{imagePath}
+			, now()
+			, now())
+	
+	</insert>
+	
 	<update id="updateArticle"
 		parameterType="map">
 		
@@ -305,6 +349,16 @@
 		WHERE
 			`id` = #{id}
 	
+	</update>
+	
+	<update id="updateNewArticleGrpId"
+		parameterType="int">
+		
+		UPDATE `article`
+		SET `grpId` = #{newArticleId}
+		WHERE
+			`id` = #{newArticleId}
+		
 	</update>
 	
 	<delete id="deleteArticle"

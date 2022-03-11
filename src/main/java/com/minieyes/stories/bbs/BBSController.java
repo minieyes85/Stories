@@ -172,4 +172,27 @@ public class BBSController {
 				
 		return "articleUpdate";
 	}
+	
+	@GetMapping("/article/replyView")
+	public String replyCreateView(
+			@RequestParam("articleId") int articleId,
+			Model model,
+			HttpServletRequest req) {
+		
+		List<BBS> allbbs = bbsBO.showAllBBS();
+		model.addAttribute("allbbs", allbbs);
+		
+		Article article = bbsBO.getArticle(articleId);
+		model.addAttribute("article", article);
+		
+		BBS bbs = bbsBO.getBBS(article.getBbsId());
+		model.addAttribute("bbs", bbs);
+		
+		List<Category> categories = bbsBO.getCategories(article.getBbsId());
+		model.addAttribute("categories", categories);
+		
+		
+		
+		return "replyCreate";
+	}
 }

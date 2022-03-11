@@ -77,12 +77,18 @@ public class BBSBO {
 		//첨부파일 첨부 추가
 		String imagePath = FileManagerService.saveFile(userId, file);
 		
-		int count = bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content, imagePath);
+		int check = bbsDAO.insertNewArticle(userId, userName, bbsId, categoryId, title, content, imagePath);
 		
-		if(count == 1 ) {
+		int newArticleId = bbsDAO.selectLastArticleId();
+		
+		check = check + bbsDAO.updateNewArticleGrpId(newArticleId);
+		
+		int count = 0;
+		
+		if(check == 2) {
 			
 			// 지금 추가한 글 id 조회
-			int articleId = bbsDAO.selectArticleIdAtMoment(userId, userName, title);
+			int articleId = bbsDAO.selectLastArticleId();
 			
 			//태그 나누기
 			String[] tagStringArray = tagsString.split(",");
@@ -99,13 +105,57 @@ public class BBSBO {
 				bbsDAO.insertTag(articleId, tag);
 			}
 			
-			return count;
+			count = 1;
 			
-		} else {
-			
-			return count;
-		}		
+		}
+		
+		return count;
 		 
+	}
+	
+	public int createReply(
+			int userId,
+			String userName,
+			int bbsId,
+			int categoryId,
+			int grpId,
+			int depth,
+			String title,
+			String content,
+			MultipartFile file,
+			String tagString) {
+		
+		// 첨부파일 추가
+		String imagePath = FileManagerService.saveFile(userId, file);
+		
+		int check = bbsDAO.insertReply(userId, userName, bbsId, categoryId, grpId, depth, title, content, imagePath);
+		
+		int count = 0;
+		
+		if(check == 1) {
+			// 태그처리
+			// 지금 추가한 글 id 조회
+			int articleId = bbsDAO.selectLastArticleId();
+			
+			//태그 나누기
+			String[] tagStringArray = tagString.split(",");
+			
+			//중복제거
+			LinkedHashSet<String> tags = new LinkedHashSet<>();
+			for(String tag:tagStringArray) {
+				String trimedTag = tag.trim();
+				tags.add(trimedTag);
+			}
+			
+			// 각 태그 db에 추가
+			for(String tag:tags) {
+				bbsDAO.insertTag(articleId, tag);
+			}
+			
+			count = 1;
+		}		
+		
+		return count;
 	}
 	
 	public Article getArticle(int articleId) {

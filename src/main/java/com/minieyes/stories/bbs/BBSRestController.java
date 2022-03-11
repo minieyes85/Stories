@@ -50,6 +50,32 @@ public class BBSRestController {
 		
 	}
 	
+	@PostMapping("/reply/create")
+	public Map<String, String> createReply(
+			@RequestParam("userId") int userId,
+			@RequestParam("userName") String userName,
+			@RequestParam("bbsId") int bbsId,
+			@RequestParam("categoryId") int categoryId,
+			@RequestParam("grpId") int grpId,
+			@RequestParam("depth") int depth,
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam(value = "tags", required = false) String tags){
+		
+		int count = bbsBO.createReply(userId, userName, bbsId, categoryId, grpId, depth, title, content, file, tags);
+		
+		Map<String, String> result = new HashMap<>();
+
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");			
+		}
+		
+		return result;
+	}
+	
 	@PostMapping("/article/update")
 	public Map<String, String> updateArticle(
 			@RequestParam("articleId") int articleId,
