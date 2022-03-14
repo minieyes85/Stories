@@ -155,4 +155,9 @@ public interface BBSDAO {
 	
 	public int deleteTagByArticleId(@Param("articleId") int articleId);
 	
+	public int updateArticleByAdmin(
+			@Param("articleId") int articleId,
+			@Param("bbsId") int bbsId,
+			@Param("categoryId") int categoryId);
+	
 }

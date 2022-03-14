@@ -1,5 +1,7 @@
 package com.minieyes.stories.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.minieyes.stories.user.model.User;
@@ -26,5 +28,7 @@ public interface UserDAO {
 			@Param("userName") String userName,
 			@Param("email") String email,
 			@Param("password") String password);
+	
+	public List<User> selectAllUsers();
 	
 }

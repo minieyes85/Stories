@@ -305,4 +305,12 @@ public class BBSBO {
 	public int removeTag(int tagId) {
 		return bbsDAO.deleteTag(tagId);
 	}
+	
+	public int updateArticleByAdmin(
+			int articleId,
+			int bbsId,
+			int categoryId) {
+		
+		return bbsDAO.updateArticleByAdmin(articleId, bbsId, categoryId);		
+	}
 }

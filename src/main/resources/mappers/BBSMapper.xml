@@ -627,6 +627,18 @@
 			`articleId` = #{articleId}
 	
 	</delete>
+	
+	<update id="updateArticleByAdmin"
+		parameterType="map">
+		
+		UPDATE `article`
+		SET
+			`bbsId` = #{bbsId}
+			, `categoryId` = #{categoryId}
+		WHERE
+			`id` = #{articleId}
+		
+	</update>
 
 
 </mapper>

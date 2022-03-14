@@ -71,6 +71,7 @@ public class UserRestController {
 		if(signedUser != null) {
 			session.setAttribute("userId", signedUser.getId());
 			session.setAttribute("userName", signedUser.getUserName());
+			session.setAttribute("isAdmin", signedUser.getIsAdmin());
 			result.put("result", "success");
 			result.put("userName", signedUser.getUserName());
 		} else {
@@ -87,6 +88,7 @@ public class UserRestController {
 		
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
+		session.removeAttribute("isAdmin");
 		
 		Map<String, String> result = new HashMap<>();
 		

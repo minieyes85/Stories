@@ -16,6 +16,9 @@
 				<c:forEach var="bbs" items="${allbbs}">
 				<li class="nav-item"><a class="nav-link text-white" href="/bbs?bbsId=${bbs.id }">${bbs.title }</a></li>
 				</c:forEach>
+				<c:if test="${isAdmin eq 1}">
+				<li class="nav-item"><a class="nav-link text-white" href="/member/manageView">회원관리</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div id="loginBox" class="d-flex justify-content-end">

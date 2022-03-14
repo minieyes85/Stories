@@ -1,6 +1,7 @@
 package com.minieyes.stories.bbs;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.minieyes.stories.bbs.bo.BBSBO;
+import com.minieyes.stories.bbs.model.Category;
 
 @RestController
 public class BBSRestController {
@@ -230,4 +232,34 @@ public class BBSRestController {
 		return result;	
 		
 	};
+	
+	@PostMapping("/bbs/getCategories")
+	public List<Category> getCategories(
+			@RequestParam("bbsId") int bbsId){
+		
+		List<Category> categories = bbsBO.getCategories(bbsId);
+		
+		return categories;
+		
+	}
+	
+	@PostMapping("/article/updateByAdmin")
+	public Map<String, String> articleUpdateByAdmin(
+			@RequestParam("articleId") int articleId,
+			@RequestParam("bbsId") int bbsId,
+			@RequestParam("categoryId") int categoryId) {
+		
+		int count = bbsBO.updateArticleByAdmin(articleId, bbsId, categoryId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
 }

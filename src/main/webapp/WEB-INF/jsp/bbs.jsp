@@ -158,7 +158,7 @@
 				</table>
 			</div>
 			
-			<div class="d-flex justify-content-center">
+			<div class="d-flex justify-content-center mb-2">
 				<table class="text-center">
 					<tr>
 						<c:choose>

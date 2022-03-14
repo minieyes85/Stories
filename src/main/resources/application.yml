@@ -7,7 +7,7 @@ spring:
   
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://minieyes85.ipdisk.co.kr:3306/project_stories?serverTimeZone=UTC&characterEncoding=UTF-8
-    url: jdbc:mysql://192.168.55.250:3306/project_stories?serverTimeZone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://minieyes85.ipdisk.co.kr:3306/project_stories?serverTimeZone=UTC&characterEncoding=UTF-8
+    #url: jdbc:mysql://192.168.55.250:3306/project_stories?serverTimeZone=UTC&characterEncoding=UTF-8
     username: root
     password: 176poweriy

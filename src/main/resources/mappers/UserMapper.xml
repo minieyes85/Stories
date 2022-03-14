@@ -60,11 +60,27 @@
 			, `loginId`
 			, `userName`
 			, `email`
+			, `isAdmin`
 			, `createdAt`
 			, `updatedAt`
 		FROM `user`
 		WHERE `loginId` = #{loginId}
 		AND `password` = #{password}
+	</select>
+	
+	<select id="selectAllUsers"
+		resultType="com.minieyes.stories.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `userName`
+			, `email`
+			, `isAdmin`
+			, `createdAt`
+			, `updatedAt`
+		FROM `user`
+		
 	</select>
 	
 	<update id="updateUser"
@@ -77,8 +93,7 @@
 		, `password` = #{password}
 		, `updatedAt` = now()
 		WHERE
-		`id` = #{id}
-		
+		`id` = #{id}		
 	</update>
 	
 

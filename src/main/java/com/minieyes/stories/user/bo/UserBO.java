@@ -1,9 +1,13 @@
 package com.minieyes.stories.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.minieyes.stories.bbs.model.BBS;
 import com.minieyes.stories.common.EncryptUtils;
+import com.minieyes.stories.main.bo.MainBO;
 import com.minieyes.stories.user.dao.UserDAO;
 import com.minieyes.stories.user.model.User;
 
@@ -12,6 +16,9 @@ public class UserBO {
 	
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	MainBO mainBO;
 	
 	public int addUser(String loginId, String userName, String email, String password) {
 		
@@ -56,5 +63,13 @@ public class UserBO {
 	public int updateInfo(int id, String userName, String email, String password) {		
 		String encPassword = EncryptUtils.md5(password);
 		return userDAO.updateUser(id,userName,email,encPassword);
+	}
+	
+	public List<User> getAllUsers() {
+		return userDAO.selectAllUsers();
+	}
+	
+	public List<BBS> showAllBBS() {
+		return mainBO.showAllBBS();
 	}
 }

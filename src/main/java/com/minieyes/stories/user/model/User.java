@@ -9,6 +9,7 @@ public class User {
 	private String userName;
 	private String email;
 	private String password;
+	private int isAdmin;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -54,4 +55,11 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	public int getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 }

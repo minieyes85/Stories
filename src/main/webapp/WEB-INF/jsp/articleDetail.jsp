@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <script type="text/javascript" src="/static/js/bbs.js"></script>
+<script type="text/javascript" src="/static/js/articleDetail.js"></script>
 <link rel="stylesheet" href="/static/css/main.css" type="text/css">
 <link rel="stylesheet" href="/static/css/article.css" type="text/css">
 
@@ -67,11 +68,53 @@
 										id="deleteArticleBtn" data-article-id="${article.id}"
 										data-bbs-id="${bbs.id}">삭제</a></li>
 								</c:if>
+								<c:if test="${isAdmin eq 1}">
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item"
+										id="moveArticleByAdmin"
+										data-bs-toggle="modal" data-bs-target="#moveArticleModal"
+										href="#">게시판 이동</a></li>
+									<li><a class="dropdown-item"
+										id="deleteArticleByAdmin"
+										href="#" data-article-id="${article.id}"
+										data-bbs-id="${bbs.id}">게시글 삭제</a></li>
+								</c:if>
 							</ul>
 						</div>
 					</div>
 				</c:if>
 			</div>
+
+			<div class="modal fade" id="moveArticleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							게시판 변경
+						</div>
+						<div class="modal-body">
+							게시판
+							<select id="bbsTitleByAdmin">
+								<option>게시판 선택</option>
+								<c:forEach var="bbs" items="${allbbs}">
+								<option value="${bbs.id}">${bbs.title}</option>
+								</c:forEach>
+							</select>
+							
+							카테고리
+							<select id="bbsCategoryByAdmin">
+							</select>
+							
+						</div>
+						<div class="modal-footer">
+							<button id="changeBBSArticle" type="button" class="btn btn-primary" data-article-id="${article.id}">
+								변경
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<c:if test="${article.imagePath ne null }">
 				<div class="ms-2 me-2 mb-5 d-flex justify-content-center">
 					<img id="articleImage"  src="${article.imagePath}"/>
@@ -190,7 +233,7 @@
 	
 	
 	</section>
-	
+
 	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
 
 	
