@@ -121,7 +121,7 @@
 				</div>
 			</c:if>
 			
-			<div id="articleContent" class="ms-2 me-2 mb-5 d-flex justify-content-between">
+			<div id="articleContent" class="ms-2 me-2 mb-5">
 				${article.content}
 			</div>
 			

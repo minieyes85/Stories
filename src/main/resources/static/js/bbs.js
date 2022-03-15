@@ -4,11 +4,27 @@
  
  $(document).ready(function(){
 	
+	$("#createArticleContent").summernote({
+		tabsize: 1,
+        height: 500,
+        maxHeight: 500,
+        lang : 'ko-KR',
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link']],
+          ['view', ['codeview', 'help']]
+        ]
+      });
+	
 	$("#createArticleBtn").on("click",function(){
 		var bbsId = $(this).data("bbs-id");
 		var category = $("#createArticleCategory").val();
 		var title = $("#createArticleTitle").val();
-		var content = $("#createArticleContent").val();
+		var content = $("#createArticleContent").summernote("code");
 		var tag = $("#createArticleTag").val();
 		
 		if(category == 999){
@@ -25,7 +41,7 @@
 			alert("내용을 입력하세요.");
 			return;
 		}
-		
+				
 		var formData = new FormData();
 		formData.append("bbsId", bbsId);
 		formData.append("category", category);

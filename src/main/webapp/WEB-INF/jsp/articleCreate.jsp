@@ -14,6 +14,9 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 <script type="text/javascript" src="/static/js/bbs.js"></script>
 <link rel="stylesheet" href="/static/css/main.css" type="text/css">
 <link rel="stylesheet" href="/static/css/article.css" type="text/css">
@@ -41,11 +44,10 @@
 				<input id="createArticleTitle" type="text" class="form-control form-control-sm" placeholder="제목을 입력 해 주세요.">
 			</div>
 			
-			<div class="mb-2 d-flex justify-content-between">
-				<textarea id="createArticleContent" class="form-control" rows="20"></textarea>
+			<div class="mb-2 d-flex justify-content-between" id="createArticleContent">
 			</div>
 			
-			<div class="mb-2">
+			<div class="mt-2 mb-2">
 				<input id="createArticleFile" type="file">
 			</div>
 			
